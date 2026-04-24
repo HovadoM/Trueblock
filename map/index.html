@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrueBlock | Mapa</title>
+    <meta
+      name="description"
+      content="Online mapa Minecraft serveru TrueBlock. Prohlédni si svět serveru přímo v prohlížeči."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <nav class="navbar" aria-label="Hlavní navigace">
+          <a class="brand" href="../home/">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span>TrueBlock</span>
+          </a>
+          <div class="nav-links">
+            <a class="nav-link" href="../home/">Domů</a>
+            <a class="nav-link active" href="../map/">Mapa</a>
+            <a class="nav-link" href="../pravidla/">Pravidla</a>
+            <a
+              class="nav-link discord"
+              href="https://discord.gg/dDcCrAfmEv"
+              target="_blank"
+              rel="noreferrer"
+              >Discord</a
+            >
+          </div>
+        </nav>
+      </header>
+
+      <main class="map-layout">
+        <section class="map-frame-shell" aria-label="Online mapa serveru">
+          <div class="info-strip">
+            <p>
+              Online mapa světa TrueBlocku. Pokud se mapa nenačte přímo tady, můžeš ji otevřít i
+              <a href="http://ms49.hicoria.cloud:44488/" target="_blank" rel="noreferrer">v novém okně</a>.
+            </p>
+          </div>
+          <iframe
+            class="map-frame"
+            src="http://ms49.hicoria.cloud:44488/"
+            title="Mapa serveru TrueBlock"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+          ></iframe>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
