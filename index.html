@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrueBlock | Premium Survival Minecraft Server</title>
+    
+    <!-- SEO & Social OpenGraph Card -->
+    <meta name="description" content="TrueBlock je prémiový československý Minecraft Survival server pro Javu i Bedrock. Nabízí stabilní ekonomiku, čistý survival s QoL funkcemi a skvělou komunitu.">
+    <meta property="og:title" content="TrueBlock | Premium Survival">
+    <meta property="og:description" content="Připoj se na play.trueblock.win a zažij poctivý Minecraft survival!">
+    <meta property="og:type" content="website">
+    <meta property="og:theme-color" content="#0ea5e9">
+
+    <!-- Google Fonts: Outfit & Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --accent-blue: #0ea5e9;
+            --accent-purple: #8b5cf6;
+            --accent-pink: #ec4899;
+            --bg-glass: rgba(10, 16, 32, 0.55);
+            --bg-glass-card: rgba(15, 23, 42, 0.65);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --neon-glow: 0 0 35px rgba(14, 165, 233, 0.3);
+            --card-radius: 24px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Vlastní designový scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-blue);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-main);
+            background: #020617;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-top: 85px;
+            position: relative;
+        }
+
+        /* Interaktivní částicový canvas na pozadí */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Scroll animace prvků */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Fixní skleněná navigace */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(7, 11, 22, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border-glass);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .nav-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8em;
+            font-weight: 900;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 5px;
+            border-radius: 16px;
+            border: 1px solid var(--border-glass);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 10px 22px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-btn.active {
+            color: #fff;
+            background: var(--bg-glass-card);
+            border-color: rgba(14, 165, 233, 0.35);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+        }
+
+        /* Hero sekce */
+        header {
+            text-align: center;
+            padding: 60px 20px 30px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 5.6em;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -3px;
+            line-height: 1;
+            margin-bottom: 12px;
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple), var(--accent-pink), var(--accent-blue));
+            background-size: 250% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 8s linear infinite;
+            filter: drop-shadow(0 10px 40px rgba(14, 165, 233, 0.25));
+        }
+
+        @keyframes shine {
+            to { background-position: 250% center; }
+        }
+
+        .subtitle {
+            font-size: 1.25em;
+            color: var(--text-muted);
+            font-weight: 300;
+            margin-bottom: 40px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Karty pro kopírování IP adres */
+        .ips-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .ip-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            padding: 22px 38px;
+            border-radius: var(--card-radius);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+        }
+
+        .ip-card:hover {
+            transform: translateY(-7px) scale(1.02);
+            border-color: rgba(14, 165, 233, 0.45);
+            box-shadow: var(--neon-glow), 0 20px 45px rgba(0, 0, 0, 0.6);
+        }
+
+        .ip-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.08), transparent);
+            transform: skewX(-22deg);
+            transition: 0.6s ease;
+        }
+        .ip-card:hover::before {
+            left: 170%;
+        }
+
+        .ip-label {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.15em;
+            color: var(--accent-blue);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .ip-address {
+            font-size: 1.55em;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .ip-hint {
+            font-size: 0.82em;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* Notifikace po zkopírování (Toast) */
+        .copy-toast {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.6);
+            background: #10b981;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.95em;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
+            z-index: 10;
+        }
+        .copy-toast.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Kontejner obsahu */
+        .container {
+            max-width: 980px;
+            margin: auto;
+            padding: 0 20px 80px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: tabFadeIn 0.45s ease forwards;
+        }
+
+        @keyframes tabFadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            margin: 30px 0;
+            padding: 45px;
+            border-radius: 30px;
+            border: 1px solid var(--border-glass);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.25em;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        p {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: #cbd5e1;
+        }
+
+        /* Karta stavu serveru (Status) */
+        .status-card {
+            background: rgba(5, 10, 24, 0.5);
+            border: 1px solid var(--border-glass);
+            border-radius: 22px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .status-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35em;
+            font-weight: 600;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #fbbf24;
+            flex-shrink: 0;
+        }
+        .dot.online {
+            background: #22c55e;
+            box-shadow: 0 0 15px #22c55e;
+            animation: pulseDot 2s infinite;
+        }
+        .dot.offline {
+            background: #ef4444;
+            box-shadow: 0 0 15px #ef4444;
+        }
+
+        @keyframes pulseDot {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+            70% { box-shadow: 0 0 0 12px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+
+        .player-bar-container {
+            background: rgba(255, 255, 255, 0.05);
+            height: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .player-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            width: 0%;
+            border-radius: 10px;
+            transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .motd-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            padding: 16px 20px;
+            font-family: monospace;
+            font-size: 1.05em;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            color: #e2e8f0;
+        }
+
+        .players-section-title {
+            font-size: 0.95em;
+            color: var(--text-muted);
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        .players-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 5px;
+        }
+
+        .player-head {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            transition: transform 0.25s ease, border-color 0.25s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+            position: relative;
+            background-size: cover;
+        }
+        .player-head:hover {
+            transform: scale(1.22) translateY(-4px);
+            border-color: var(--accent-blue);
+            z-index: 5;
+        }
+        .player-head::after {
+            content: attr(data-name);
+            position: absolute;
+            bottom: 46px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.85);
+            background: #090e1c;
+            border: 1px solid var(--border-glass);
+            color: #fff;
+            padding: 5px 10px;
+            font-size: 0.8em;
+            border-radius: 8px;
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+        }
+        .player-head:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+        }
+
+        /* Herní vlastnosti (Features) */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 22px;
+            margin-top: 25px;
+        }
+
+        .feature-card {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border-glass);
+            padding: 28px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.03);
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.35);
+        }
+
+        .feature-icon {
+            font-size: 2.2em;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .feature-card h3 {
+            font-family: 'Outfit', sans-serif;
+            margin-bottom: 8px;
+            font-size: 1.3em;
+            color: #fff;
+        }
+
+        /* Akční tlačítka */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 36px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05em;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 100px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-map {
+            background: linear-gradient(135deg, var(--accent-blue), #2563eb);
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3);
+        }
+        .btn-discord {
+            background: linear-gradient(135deg, #5865F2, #4752C4);
+            box-shadow: 0 10px 25px rgba(88, 101, 242, 0.3);
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.15);
+        }
+
+        /* Vyhledávací pole */
+        .search-box {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 16px 22px 16px 52px;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.05em;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.2);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            fill: var(--text-muted);
+            pointer-events: none;
+        }
+
+        /* Upozornění v pravidlech */
+        .rules-notice {
+            background: rgba(234, 179, 8, 0.08);
+            border: 1px solid rgba(234, 179, 8, 0.25);
+            border-radius: 16px;
+            padding: 22px;
+            margin-top: 30px;
+        }
+
+        /* Akordeon pro pravidla */
+        .accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .accordion-item {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border-glass);
+            border-radius: 18px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header {
+            padding: 20px 26px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25em;
+            font-weight: 600;
+        }
+
+        .accordion-header:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .accordion-icon {
+            transition: transform 0.35s ease;
+            fill: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+            padding: 0 26px;
+            color: #cbd5e1;
+            font-size: 1.05em;
+        }
+
+        .accordion-item.open {
+            border-color: rgba(14, 165, 233, 0.3);
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .accordion-item.open .accordion-icon {
+            transform: rotate(180deg);
+            fill: var(--accent-blue);
+        }
+        .accordion-item.open .accordion-content {
+            max-height: 1200px;
+            padding-bottom: 22px;
+            transition: max-height 0.5s cubic-bezier(1, 0, 1, 0);
+        }
+
+        /* Sekce Herní příkazy */
+        .commands-categories {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .cmd-cat-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-glass);
+            color: var(--text-muted);
+            padding: 9px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: all 0.25s ease;
+        }
+        .cmd-cat-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .cmd-cat-btn.active {
+            color: #fff;
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+        }
+
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        .cmd-card {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .cmd-card:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(14, 165, 233, 0.35);
+            transform: translateY(-3px);
+        }
+
+        .cmd-code-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .cmd-code {
+            font-family: monospace;
+            font-size: 1.15em;
+            font-weight: 700;
+            color: #38bdf8;
+            background: rgba(14, 165, 233, 0.1);
+            padding: 4px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            word-break: break-all;
+        }
+
+        .cmd-tag {
+            font-size: 0.75em;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .cmd-desc {
+            font-size: 0.95em;
+            color: #cbd5e1;
+            line-height: 1.5;
+            margin-top: 6px;
+        }
+
+        .cmd-click-tip {
+            font-size: 0.78em;
+            color: var(--text-muted);
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 45px 20px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-glass);
+            background: rgba(2, 6, 23, 0.7);
+        }
+
+        /* Responzivní přizpůsobení */
+        @media (max-width: 768px) {
+            h1 { font-size: 3.6em; letter-spacing: -1.5px; }
+            .section { padding: 25px 20px; border-radius: 22px; }
+            .navbar { padding: 0 16px; }
+            .tab-btn { padding: 8px 12px; font-size: 0.88em; }
+            .ip-card { padding: 18px 25px; width: 100%; }
+            .commands-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas pro jemný ambientní prach -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigační panel -->
+    <nav class="navbar">
+        <div class="nav-logo" onclick="switchTab('tab-prehled', document.querySelector('.tab-btn'))">
+            <span>TRUEBLOCK</span>
+        </div>
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('tab-prehled', this)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Přehled
+            </button>
+            <button class="tab-btn" onclick="switchTab('tab-pravidla', this)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                Pravidla
+            </button>
+            <button class="tab-btn" onclick="switchTab('tab-prikazy', this)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                Příkazy
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero sekce -->
+    <header>
+        <h1 class="reveal active">TrueBlock</h1>
+        <p class="subtitle reveal active">Tenhle server je hlavně o pohodě, zábavě a hraní s ostatníma.</p>
+
+        <div class="ips-container reveal active">
+            <!-- Java Edice Card -->
+            <div class="ip-card" onclick="copyIP('play.trueblock.win', 'toast-java')">
+                <span class="ip-label">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    Java Edice
+                </span>
+                <span class="ip-address">play.trueblock.win</span>
+                <div class="ip-hint">Klikni pro zkopírování • Verze 1.20+</div>
+                <div id="toast-java" class="copy-toast">Zkopírováno!</div>
+            </div>
+
+            <!-- Bedrock Edice Card -->
+            <div class="ip-card" onclick="copyIP('play.trueblock.win', 'toast-bedrock')">
+                <span class="ip-label" style="color: var(--accent-purple);">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"/></svg>
+                    Bedrock Edice
+                </span>
+                <span class="ip-address">play.trueblock.win</span>
+                <div class="ip-hint">Port: 44486 • Mobil & Konzole</div>
+                <div id="toast-bedrock" class="copy-toast">Zkopírováno!</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hlavní kontejner SPA záložek -->
+    <div class="container">
+
+        <!-- ================= TAB 1: PŘEHLED ================= -->
+        <div id="tab-prehled" class="tab-content active">
+            
+            <!-- Live Server Status Card -->
+            <div class="section reveal active">
+                <h2>📡 Živý stav serveru</h2>
+                <div id="status-card" class="status-card">
+                    <div class="status-header">
+                        <div class="dot"></div>
+                        <span>Načítám aktuální data ze serveru...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3D BlueMap Mapa -->
+            <div class="section reveal">
+                <h2>🗺️ 3D Herní Mapa (BlueMap)</h2>
+                <p style="margin-bottom: 25px;">Prohlédni si náš celý survival svět z ptačí perspektivy v plynulém 3D zobrazení. Můžeš sledovat své stavby, objevovat neprozkoumané biomy nebo hledat ideální parcelu pro svůj nový domov.</p>
+                <a class="btn btn-map" href="http://map.trueblock.win:44488" target="_blank" rel="noopener noreferrer">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+                    Otevřít 3D Mapu
+                </a>
+            </div>
+
+            <!-- Herní přednosti -->
+            <div class="section reveal">
+                <h2>⚙️ Proč právě TrueBlock?</h2>
+                <div class="features">
+                    <div class="feature-card">
+                        <span class="feature-icon">🛡️</span>
+                        <h3>Respekt a bezpečí</h3>
+                        <p>Zde si ceníme cizí práce. Vaše stavby a cenné truhly jsou plně zabezpečeny spolehlivým systémem rezidencí.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">⚖️</span>
+                        <h3>Zdravá ekonomika</h3>
+                        <p>Aukce (/ah) a trh chráníme před umělým podsekáváním cen. Každý vytěžený diamant si drží svou skutečnou hodnotu.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🚀</span>
+                        <h3>Plynulý výkon</h3>
+                        <p>Optimalizovaný běh bez lagů a záseků. Dbáme na stabilitu TPS i při větším množství současně hrajících hráčů.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================= TAB 2: PRAVIDLA ================= -->
+        <div id="tab-pravidla" class="tab-content">
+            <div class="section">
+                <h2>📜 Pravidla serveru</h2>
+                <p style="margin-bottom: 20px; color: var(--text-muted);">
+                    Tenhle server je hlavně o pohodě, zábavě a hraní s ostatníma. Chovej se proto k ostatním hráčům slušně a s respektem. Každý sem přišel hrát, ne řešit hádky nebo drama.
+                </p>
+
+                <!-- Rychlé fulltextové vyhledávání v pravidlech -->
+                <div class="search-box">
+                    <svg width="20" height="20" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                    <input type="text" id="rulesSearch" oninput="filterRules()" placeholder="Hledat v pravidlech (např. trh, ban, x-ray, farmy)...">
+                </div>
+
+                <!-- Akordeon s novými přesnými pravidly -->
+                <div class="accordion" id="rulesAccordion">
+                    
+                    <!-- Pravidlo 1 -->
+                    <div class="accordion-item open">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>🏡 1. Respektuj cizí práci</span>
+                            <svg class="accordion-icon" width="22" height="22" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Stavby, věci a celkově svět ostatních hráčů nejsou tvoje, takže je nenič a nic si neber bez dovolení. Pokud si chceš něco půjčit nebo použít, vždycky se domluv.</p>
+                        </div>
+                    </div>
+
+                    <!-- Pravidlo 2 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>⚔️ 2. Hraj fér</span>
+                            <svg class="accordion-icon" width="22" height="22" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Nepoužívej žádné cheaty, hacky nebo výhody, které ostatní nemají. Patří sem například X-ray, fly hacky nebo jiné úpravy, které ti dávají nefér náskok.</p>
+                        </div>
+                    </div>
+
+                    <!-- Pravidlo 3 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>🐷 3. Mysli i na chod serveru</span>
+                            <svg class="accordion-icon" width="22" height="22" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Nedělej věci, které ho zbytečně zatěžují – například extrémní farmy, obrovské množství entit nebo různé „lag machine“. Když něco začne lagovat, snaž se to řešit.</p>
+                        </div>
+                    </div>
+
+                    <!-- Pravidlo 4 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>💰 4. Chraň ekonomiku a trh</span>
+                            <svg class="accordion-icon" width="22" height="22" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Je přísně zakázáno uměle ničit ekonomiku serveru (tzv. crashing market). To zahrnuje hromadný prodej surovin hluboko pod cenou, rozdávání hodnotných věcí zdarma nováčkům nebo zakládání monopolů, které kazí hru ostatním. Ceny v aukcích (/ah) a obchodech musí odpovídat reálné hodnotě a vzácnosti daného předmětu. Pokud máš nadbytek surovin, neznamená to, že je prodáš za korunu, abys vyčistil sklad.</p>
+                            <p style="margin-top: 12px; color: #fb7185; font-weight: 600;">
+                                🚫 Trest: Konfiskace zboží, smazání herních peněz, při opakování ban.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Pravidlo 5 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>🧠 5. Používej zdravý rozum</span>
+                            <svg class="accordion-icon" width="22" height="22" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Ne všechno jde vypsat do pravidel, takže když si nejsi jistý, jestli je něco v pohodě, radši se zeptej nebo to nedělej.</p>
+                            <p style="margin-top: 10px;">💡 Když nastane problém, řeš ho v klidu – případně napiš adminovi.</p>
+                            <p style="margin-top: 6px; color: var(--accent-blue); font-weight: 500;">🔥 Hlavní myšlenka: Hraj tak, aby to bavilo tebe i ostatní.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Doplňující upozornění -->
+                <div class="rules-notice">
+                    <p style="color: #fbbf24; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+                        ⚠️ Upozornění vedení serveru
+                    </p>
+                    <p style="font-size: 0.95em; color: #cbd5e1; margin-top: 6px;">
+                        Vedení serveru si vyhrazuje právo kdykoliv změnit nebo doplnit tato pravidla bez předchozího upozornění. Neznalost pravidel neomlouvá.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 3: PŘÍKAZY ================= -->
+        <div id="tab-prikazy" class="tab-content">
+            <div class="section">
+                <h2>⌨️ Herní příkazy</h2>
+                <p style="margin-bottom: 25px; color: var(--text-muted);">
+                    Rychlý tahák příkazů pro pohodlné hraní na serveru. Kliknutím na libovolný příkaz jej okamžitě zkopíruješ do schránky.
+                </p>
+
+                <!-- Vyhledávač příkazů -->
+                <div class="search-box">
+                    <svg width="20" height="20" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                    <input type="text" id="cmdSearch" oninput="filterCommands()" placeholder="Hledat příkaz (např. rezidence, domov, peníze, teleport)...">
+                </div>
+
+                <!-- Tlačítka kategorií -->
+                <div class="commands-categories">
+                    <button class="cmd-cat-btn active" onclick="setCmdCategory('all', this)">Všechny</button>
+                    <button class="cmd-cat-btn" onclick="setCmdCategory('basic', this)">Základní</button>
+                    <button class="cmd-cat-btn" onclick="setCmdCategory('res', this)">Rezidence</button>
+                    <button class="cmd-cat-btn" onclick="setCmdCategory('tp', this)">Teleportace</button>
+                    <button class="cmd-cat-btn" onclick="setCmdCategory('eco', this)">Ekonomika</button>
+                    <button class="cmd-cat-btn" onclick="setCmdCategory('chat', this)">Komunikace</button>
+                </div>
+
+                <!-- Grid příkazů -->
+                <div class="commands-grid" id="commandsGrid">
+                    
+                    <!-- Základní -->
+                    <div class="cmd-card" data-cat="basic" onclick="copyCommand('/spawn')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/spawn</span>
+                            <span class="cmd-tag">Základní</span>
+                        </div>
+                        <p class="cmd-desc">Okamžitý návrat na hlavní spawn serveru.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="basic" onclick="copyCommand('/sethome')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/sethome [název]</span>
+                            <span class="cmd-tag">Základní</span>
+                        </div>
+                        <p class="cmd-desc">Uloží tvou aktuální pozici jako domovský bod.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="basic" onclick="copyCommand('/home')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/home [název]</span>
+                            <span class="cmd-tag">Základní</span>
+                        </div>
+                        <p class="cmd-desc">Teleportuje tě na tvůj uložený domov.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="basic" onclick="copyCommand('/delhome')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/delhome [název]</span>
+                            <span class="cmd-tag">Základní</span>
+                        </div>
+                        <p class="cmd-desc">Smaže vybraný uložený domov.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <!-- Rezidence -->
+                    <div class="cmd-card" data-cat="res" onclick="copyCommand('/res select')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/res select</span>
+                            <span class="cmd-tag">Rezidence</span>
+                        </div>
+                        <p class="cmd-desc">Aktivuje nástroj pro výběr dvou protilehlých rohů pozemku.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="res" onclick="copyCommand('/res create')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/res create [název]</span>
+                            <span class="cmd-tag">Rezidence</span>
+                        </div>
+                        <p class="cmd-desc">Vytvoří a uzamkne označenou oblast pod daným názvem.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="res" onclick="copyCommand('/res pset')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/res pset [hráč] [právo] [t/f]</span>
+                            <span class="cmd-tag">Rezidence</span>
+                        </div>
+                        <p class="cmd-desc">Povolí kamarádovi stavět nebo otevírat truhly (build, container).</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="res" onclick="copyCommand('/res tp')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/res tp [název]</span>
+                            <span class="cmd-tag">Rezidence</span>
+                        </div>
+                        <p class="cmd-desc">Teleportuje tě do tvé rezidence nebo veřejné rezidence jiného hráče.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <!-- Teleportace -->
+                    <div class="cmd-card" data-cat="tp" onclick="copyCommand('/tpa')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/tpa [hráč]</span>
+                            <span class="cmd-tag">Teleport</span>
+                        </div>
+                        <p class="cmd-desc">Pošle hráči žádost o teleportování k němu.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="tp" onclick="copyCommand('/tpaccept')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/tpaccept</span>
+                            <span class="cmd-tag">Teleport</span>
+                        </div>
+                        <p class="cmd-desc">Potvrdí a přijme příchozí žádost o teleport.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="tp" onclick="copyCommand('/tpdeny')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/tpdeny</span>
+                            <span class="cmd-tag">Teleport</span>
+                        </div>
+                        <p class="cmd-desc">Odmítne příchozí žádost o teleport.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <!-- Ekonomika -->
+                    <div class="cmd-card" data-cat="eco" onclick="copyCommand('/money')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/money</span>
+                            <span class="cmd-tag">Ekonomika</span>
+                        </div>
+                        <p class="cmd-desc">Zobrazí tvůj aktuální stav herních financí.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="eco" onclick="copyCommand('/ah')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/ah</span>
+                            <span class="cmd-tag">Ekonomika</span>
+                        </div>
+                        <p class="cmd-desc">Otevře globální aukční dům pro nákup a prodej předmětů.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="eco" onclick="copyCommand('/ah sell')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/ah sell [cena]</span>
+                            <span class="cmd-tag">Ekonomika</span>
+                        </div>
+                        <p class="cmd-desc">Vystaví předmět, který držíš v ruce, do aukce za férovou cenu.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="eco" onclick="copyCommand('/pay')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/pay [hráč] [částka]</span>
+                            <span class="cmd-tag">Ekonomika</span>
+                        </div>
+                        <p class="cmd-desc">Převede zadanou finanční částku přímo jinému hráči.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <!-- Komunikace -->
+                    <div class="cmd-card" data-cat="chat" onclick="copyCommand('/msg')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/msg [hráč] [zpráva]</span>
+                            <span class="cmd-tag">Chat</span>
+                        </div>
+                        <p class="cmd-desc">Odešle soukromou zprávu vybranému hráči online.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="chat" onclick="copyCommand('/r')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/r [zpráva]</span>
+                            <span class="cmd-tag">Chat</span>
+                        </div>
+                        <p class="cmd-desc">Rychle odpoví na poslední obdrženou soukromou zprávu.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Sdílený Discord Banner na spodku stránky -->
+        <div class="section reveal" style="text-align: center; padding: 50px 30px;">
+            <h2>💬 Připoj se k naší komunitě</h2>
+            <p style="max-width: 600px; margin: 0 auto 30px; color: var(--text-muted);">
+                Ankety o novinkách, hlášení chyb, soutěže a přátelský pokec s admin týmem i ostatními hráči.
+            </p>
+            <a class="btn btn-discord" href="https://discord.gg/tJQE55kaGu" target="_blank" rel="noopener noreferrer">
+                <svg width="22" height="22" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a74.37,74.37,0,0,0,6.85-11.85,68.44,68.44,0,0,1-10.75-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,72.76,0c.86.68,1.75,1.36,2.66,2a68.86,68.86,0,0,1-10.75,5.18,74.77,74.77,0,0,0,6.85,11.85,105.54,105.54,0,0,0,31.05-18.83C129.24,48.25,123.47,25.42,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z"/></svg>
+                Otevřít Discord Server
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Plovoucí notifikace pro zkopírování příkazu -->
+    <div id="cmd-global-toast" class="copy-toast" style="position: fixed; top: 110px; left: 50%; transform: translateX(-50%) scale(0.6);">
+        Příkaz zkopírován do schránky!
+    </div>
+
+    <!-- Patička -->
+    <footer>
+        © TrueBlock 2026 • Vytvořil HovadoMichal
+    </footer>
+
+    <script>
+        // --- 1. AMBIENTNÍ ČÁSTICOVÉ POZADÍ (CANVAS) ---
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.6;
+                this.speedX = (Math.random() - 0.5) * 0.25;
+                this.speedY = (Math.random() - 0.5) * 0.25;
+                this.opacity = Math.random() * 0.5 + 0.15;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(14, 165, 233, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Vytvoření 45 částic pro lehký a plynulý chod
+        for (let i = 0; i < 45; i++) {
+            particles.push(new Particle());
+        }
+
+        function renderCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(renderCanvas);
+        }
+        renderCanvas();
+
+        // --- 2. BEZPEČNÉ KOPÍROVÁNÍ TEXTU DO SCHRÁNKY ---
+        function copyTextUniversal(text) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const tempArea = document.createElement("textarea");
+            tempArea.value = text;
+            tempArea.style.position = "fixed";
+            tempArea.style.left = "-9999px";
+            document.body.appendChild(tempArea);
+            tempArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempArea);
+        }
+
+        function copyIP(ip, toastId) {
+            copyTextUniversal(ip);
+            const toast = document.getElementById(toastId);
+            if (toast) {
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2000);
+            }
+        }
+
+        function copyCommand(cmd) {
+            copyTextUniversal(cmd);
+            const globalToast = document.getElementById('cmd-global-toast');
+            if (globalToast) {
+                globalToast.innerText = `Příkaz ${cmd} zkopírován!`;
+                globalToast.classList.add('show');
+                setTimeout(() => globalToast.classList.remove('show'), 2200);
+            }
+        }
+
+        // --- 3. PŘEPÍNÁNÍ SPA ZÁLOŽEK ---
+        function switchTab(tabId, triggerBtn) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+            const targetSection = document.getElementById(tabId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            if (triggerBtn) {
+                triggerBtn.classList.add('active');
+            }
+
+            // Plynulý posun na začátek stránky při změně pohledu
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- 4. AKORDEON PRO PRAVIDLA ---
+        function toggleAccordion(header) {
+            const item = header.parentElement;
+            const isOpen = item.classList.contains('open');
+
+            // Zavření všech ostatních akordeonů
+            document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+
+            // Otevření pouze kliknutého
+            if (!isOpen) {
+                item.classList.add('open');
+            }
+        }
+
+        // --- 5. VYHLEDÁVÁNÍ V PRAVIDLECH ---
+        function filterRules() {
+            const query = document.getElementById('rulesSearch').value.toLowerCase().trim();
+            const items = document.querySelectorAll('.accordion-item');
+
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    item.style.display = "block";
+                    if (query.length > 1) item.classList.add('open');
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        }
+
+        // --- 6. VYHLEDÁVÁNÍ A KATEGORIE PŘÍKAZŮ ---
+        let currentCmdCategory = 'all';
+
+        function setCmdCategory(cat, btn) {
+            currentCmdCategory = cat;
+            document.querySelectorAll('.cmd-cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filterCommands();
+        }
+
+        function filterCommands() {
+            const query = document.getElementById('cmdSearch').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.cmd-card');
+
+            cards.forEach(card => {
+                const cat = card.getAttribute('data-cat');
+                const text = card.innerText.toLowerCase();
+                const matchesCategory = (currentCmdCategory === 'all' || cat === currentCmdCategory);
+                const matchesQuery = text.includes(query);
+
+                if (matchesCategory && matchesQuery) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        // --- 7. DYNAMICKÝ MC STATUS + AVATARY HRÁČŮ ---
+        async function fetchServerStatus() {
+            const card = document.getElementById('status-card');
+            try {
+                const res = await fetch("https://api.mcsrvstat.us/2/play.trueblock.win");
+                const data = await res.json();
+
+                if (data.online) {
+                    const online = data.players.online || 0;
+                    const max = data.players.max || 0;
+                    const percentage = max > 0 ? Math.round((online / max) * 100) : 0;
+                    const version = data.version || "1.20+";
+                    const motdHtml = (data.motd && data.motd.html && data.motd.html.length > 0)
+                        ? data.motd.html.join('<br>')
+                        : "Vítej na TrueBlock Survival!";
+
+                    let html = `
+                        <div class="status-header">
+                            <div class="dot online"></div>
+                            <span>Server je <strong style="color:#22c55e;">Online</strong></span>
+                        </div>
+                        <div>
+                            <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:1em; color:var(--text-muted);">
+                                <span>Aktivní hráči: <strong style="color:#fff;">${online} / ${max}</strong></span>
+                                <span>Verze: <strong style="color:#fff;">${version}</strong></span>
+                            </div>
+                            <div class="player-bar-container">
+                                <div class="player-bar-fill" style="width: ${percentage}%;"></div>
+                            </div>
+                        </div>
+                        <div class="motd-box">${motdHtml}</div>
+                    `;
+
+                    // Generování avatarů online hráčů přes Minotar API
+                    if (data.players.list && data.players.list.length > 0) {
+                        html += `
+                            <div class="players-section-title">Hráči právě ve hře:</div>
+                            <div class="players-grid">
+                        `;
+                        data.players.list.forEach(player => {
+                            html += `
+                                <div class="player-head" data-name="${player}" style="background-image: url('https://minotar.net/avatar/${encodeURIComponent(player)}/40');"></div>
+                            `;
+                        });
+                        html += `</div>`;
+                    } else {
+                        html += `
+                            <div class="players-section-title" style="font-style: italic;">
+                                Žádný hráč zrovna není připojen. Buď první, kdo dnes nastartuje hru!
+                            </div>
+                        `;
+                    }
+
+                    card.innerHTML = html;
+                } else {
+                    throw new Error("Server Offline");
+                }
+            } catch (err) {
+                card.innerHTML = `
+                    <div class="status-header">
+                        <div class="dot offline"></div>
+                        <span>Server je momentálně <strong style="color:#ef4444;">Offline</strong></span>
+                    </div>
+                    <div class="motd-box" style="color: var(--text-muted);">
+                        Právě probíhá plánovaná údržba nebo restart serveru. Zkus se připojit za okamžik.
+                    </div>
+                `;
+            }
+        }
+        fetchServerStatus();
+
+        // --- 8. SCROLL OBSERVER REVEAL ---
+        document.addEventListener("DOMContentLoaded", () => {
+            const reveals = document.querySelectorAll(".reveal");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            reveals.forEach(r => observer.observe(r));
+        });
+    </script>
+</body>
+</html>
