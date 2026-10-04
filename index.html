@@ -766,7 +766,7 @@
     <!-- Hero sekce -->
     <header>
         <h1 class="reveal active">TrueBlock</h1>
-        <p class="subtitle reveal active">Tenhle server je hlavně o pohodě, zábavě a hraní s ostatníma.</p>
+        <p class="subtitle reveal active">Tenhle server je hlavně o pohodě, poctivém survivalu a skvělé komunitě.</p>
 
         <div class="ips-container reveal active">
             <!-- Java Edice Card -->
@@ -776,7 +776,7 @@
                     Java Edice
                 </span>
                 <span class="ip-address">play.trueblock.win</span>
-                <div class="ip-hint">Klikni pro zkopírování • Verze 1.20+</div>
+                <div class="ip-hint">Klikni pro zkopírování • Verze 26.3 (podpora 1.20 - 26.x)</div>
                 <div id="toast-java" class="copy-toast">Zkopírováno!</div>
             </div>
 
@@ -825,19 +825,34 @@
                 <h2>⚙️ Proč právě TrueBlock?</h2>
                 <div class="features">
                     <div class="feature-card">
-                        <span class="feature-icon">🛡️</span>
-                        <h3>Respekt a bezpečí</h3>
-                        <p>Zde si ceníme cizí práce. Vaše stavby a cenné truhly jsou plně zabezpečeny spolehlivým systémem rezidencí.</p>
+                        <span class="feature-icon">🏰</span>
+                        <h3>Volné stavění & Ochrana</h3>
+                        <p>Žádné omezující rezidence ani placené parcely. Stav kdekoli v přírodě! Proti griefingu a krádežím vás spolehlivě chrání systém CoreProtect.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">📦</span>
+                        <h3>Vlastní loot z truhel (Lootr)</h3>
+                        <p>Každý hráč má v dungeonech, chrámech a pevnostech svou vlastní instanci kořisti. Už nikdy nenarazíš na vybranou prázdnou truhlu!</p>
                     </div>
                     <div class="feature-card">
                         <span class="feature-icon">⚖️</span>
-                        <h3>Zdravá ekonomika</h3>
-                        <p>Aukce (/ah) a trh chráníme před umělým podsekáváním cen. Každý vytěžený diamant si drží svou skutečnou hodnotu.</p>
+                        <h3>Zdravá ekonomika & Tržiště</h3>
+                        <p>Globální aukce (/ah) i truhlicové obchody hráčů (/qs). Vyvážená ekonomika bez inflace, kde si každá surovina drží svou skutečnou hodnotu.</p>
                     </div>
                     <div class="feature-card">
-                        <span class="feature-icon">🚀</span>
-                        <h3>Plynulý výkon</h3>
-                        <p>Optimalizovaný běh bez lagů a záseků. Dbáme na stabilitu TPS i při větším množství současně hrajících hráčů.</p>
+                        <span class="feature-icon">⚔️</span>
+                        <h3>RPG Dovednosti (AuraSkills)</h3>
+                        <p>Zvyšuj si úrovně v těžbě, boji, rybaření či zemědělství. Získávej permanentní bonusy k síle, obraně a odemykej speciální skilly.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">📍</span>
+                        <h3>Hráčské warpy (/pwarps)</h3>
+                        <p>Vytvoř si vlastní veřejný warp pro svou základnu, farmu či obchod a navštěvuj výtvory ostatních hráčů v přehledném menu.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🏆</span>
+                        <h3>Soutěže, Hroby & QoL</h3>
+                        <p>Pravidelné turnaje o diamanty, 12h hroby se zabezpečeným lootem, pózování (/sit), kácení stromů a minihry v chatu pro každodenní zábavu.</p>
                     </div>
                 </div>
             </div>
@@ -858,7 +873,7 @@
                     <input type="text" id="rulesSearch" oninput="filterRules()" placeholder="Hledat v pravidlech (např. trh, ban, x-ray, farmy)...">
                 </div>
 
-                <!-- Akordeon s novými přesnými pravidly -->
+                <!-- Akordeon s pravidly -->
                 <div class="accordion" id="rulesAccordion">
                     
                     <!-- Pravidlo 1 -->
@@ -940,35 +955,44 @@
             <div class="section">
                 <h2>⌨️ Herní příkazy</h2>
                 <p style="margin-bottom: 25px; color: var(--text-muted);">
-                    Rychlý tahák příkazů pro pohodlné hraní na serveru. Kliknutím na libovolný příkaz jej okamžitě zkopíruješ do schránky.
+                    Kompletní tahák příkazů pro pohodlné hraní na TrueBlock. Kliknutím na libovolný příkaz jej okamžitě zkopíruješ do schránky.
                 </p>
 
                 <!-- Vyhledávač příkazů -->
                 <div class="search-box">
                     <svg width="20" height="20" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-                    <input type="text" id="cmdSearch" oninput="filterCommands()" placeholder="Hledat příkaz (např. rezidence, domov, peníze, teleport)...">
+                    <input type="text" id="cmdSearch" oninput="filterCommands()" placeholder="Hledat příkaz (např. menu, warp, skills, trh, peníze, sednout)...">
                 </div>
 
                 <!-- Tlačítka kategorií -->
                 <div class="commands-categories">
                     <button class="cmd-cat-btn active" onclick="setCmdCategory('all', this)">Všechny</button>
                     <button class="cmd-cat-btn" onclick="setCmdCategory('basic', this)">Základní</button>
-                    <button class="cmd-cat-btn" onclick="setCmdCategory('res', this)">Rezidence</button>
-                    <button class="cmd-cat-btn" onclick="setCmdCategory('tp', this)">Teleportace</button>
+                    <button class="cmd-cat-btn" onclick="setCmdCategory('tp', this)">Warpy & Cestování</button>
+                    <button class="cmd-cat-btn" onclick="setCmdCategory('rpg', this)">RPG & Statistiky</button>
                     <button class="cmd-cat-btn" onclick="setCmdCategory('eco', this)">Ekonomika</button>
-                    <button class="cmd-cat-btn" onclick="setCmdCategory('chat', this)">Komunikace</button>
+                    <button class="cmd-cat-btn" onclick="setCmdCategory('fun', this)">Komunita & Zábava</button>
                 </div>
 
                 <!-- Grid příkazů -->
                 <div class="commands-grid" id="commandsGrid">
                     
                     <!-- Základní -->
+                    <div class="cmd-card" data-cat="basic" onclick="copyCommand('/menu')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/menu</span>
+                            <span class="cmd-tag">Hlavní</span>
+                        </div>
+                        <p class="cmd-desc">Otevře hlavní interaktivní grafické menu serveru se všemi funkcemi.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
                     <div class="cmd-card" data-cat="basic" onclick="copyCommand('/spawn')">
                         <div class="cmd-code-wrapper">
                             <span class="cmd-code">/spawn</span>
                             <span class="cmd-tag">Základní</span>
                         </div>
-                        <p class="cmd-desc">Okamžitý návrat na hlavní spawn serveru.</p>
+                        <p class="cmd-desc">Okamžitý bezpečný návrat na centrální spawn serveru.</p>
                         <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
                     </div>
 
@@ -977,7 +1001,7 @@
                             <span class="cmd-code">/sethome [název]</span>
                             <span class="cmd-tag">Základní</span>
                         </div>
-                        <p class="cmd-desc">Uloží tvou aktuální pozici jako domovský bod.</p>
+                        <p class="cmd-desc">Uloží tvou aktuální pozici jako domovský bod pro rychlý návrat.</p>
                         <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
                     </div>
 
@@ -986,7 +1010,7 @@
                             <span class="cmd-code">/home [název]</span>
                             <span class="cmd-tag">Základní</span>
                         </div>
-                        <p class="cmd-desc">Teleportuje tě na tvůj uložený domov.</p>
+                        <p class="cmd-desc">Teleportuje tě do tvého uloženého domova.</p>
                         <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
                     </div>
 
@@ -995,54 +1019,62 @@
                             <span class="cmd-code">/delhome [název]</span>
                             <span class="cmd-tag">Základní</span>
                         </div>
-                        <p class="cmd-desc">Smaže vybraný uložený domov.</p>
+                        <p class="cmd-desc">Smaže tvůj vybraný uložený domovský bod.</p>
                         <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
                     </div>
 
-                    <!-- Rezidence -->
-                    <div class="cmd-card" data-cat="res" onclick="copyCommand('/res select')">
+                    <div class="cmd-card" data-cat="basic" onclick="copyCommand('/kit starter')">
                         <div class="cmd-code-wrapper">
-                            <span class="cmd-code">/res select</span>
-                            <span class="cmd-tag">Rezidence</span>
+                            <span class="cmd-code">/kit starter</span>
+                            <span class="cmd-tag">Odměna</span>
                         </div>
-                        <p class="cmd-desc">Aktivuje nástroj pro výběr dvou protilehlých rohů pozemku.</p>
+                        <p class="cmd-desc">Jednorázový startovní balíček základních dřevěných nástrojů, 6x chleba, loučí a dřeva.</p>
                         <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
                     </div>
 
-                    <div class="cmd-card" data-cat="res" onclick="copyCommand('/res create')">
+                    <div class="cmd-card" data-cat="basic" onclick="copyCommand('/kit daily')">
                         <div class="cmd-code-wrapper">
-                            <span class="cmd-code">/res create [název]</span>
-                            <span class="cmd-tag">Rezidence</span>
+                            <span class="cmd-code">/kit daily</span>
+                            <span class="cmd-tag">Odměna</span>
                         </div>
-                        <p class="cmd-desc">Vytvoří a uzamkne označenou oblast pod daným názvem.</p>
+                        <p class="cmd-desc">Každých 24 hodin drobná svačina pro přežití (4x pečená brambora, louče, uhlí a 2x jablko).</p>
                         <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
                     </div>
 
-                    <div class="cmd-card" data-cat="res" onclick="copyCommand('/res pset')">
+                    <!-- Warpy & Cestování -->
+                    <div class="cmd-card" data-cat="tp" onclick="copyCommand('/rtp')">
                         <div class="cmd-code-wrapper">
-                            <span class="cmd-code">/res pset [hráč] [právo] [t/f]</span>
-                            <span class="cmd-tag">Rezidence</span>
+                            <span class="cmd-code">/rtp</span>
+                            <span class="cmd-tag">Teleport</span>
                         </div>
-                        <p class="cmd-desc">Povolí kamarádovi stavět nebo otevírat truhly (build, container).</p>
+                        <p class="cmd-desc">Náhodný a bezpečný teleport do neprobádané divočiny pro hledání místa ke stavbě.</p>
                         <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
                     </div>
 
-                    <div class="cmd-card" data-cat="res" onclick="copyCommand('/res tp')">
+                    <div class="cmd-card" data-cat="tp" onclick="copyCommand('/pwarps')">
                         <div class="cmd-code-wrapper">
-                            <span class="cmd-code">/res tp [název]</span>
-                            <span class="cmd-tag">Rezidence</span>
+                            <span class="cmd-code">/pwarps</span>
+                            <span class="cmd-tag">Hráčské warpy</span>
                         </div>
-                        <p class="cmd-desc">Teleportuje tě do tvé rezidence nebo veřejné rezidence jiného hráče.</p>
+                        <p class="cmd-desc">Otevře nabídku komunitních warpů hráčů seřazených do kategorií (obchody, farmy, stavby).</p>
                         <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
                     </div>
 
-                    <!-- Teleportace -->
+                    <div class="cmd-card" data-cat="tp" onclick="copyCommand('/pwarp set')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/pwarp set [název]</span>
+                            <span class="cmd-tag">Hráčské warpy</span>
+                        </div>
+                        <p class="cmd-desc">Vytvoří tvůj vlastní veřejný warp, kam se ostatní hráči mohou teleportovat.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
                     <div class="cmd-card" data-cat="tp" onclick="copyCommand('/tpa')">
                         <div class="cmd-code-wrapper">
                             <span class="cmd-code">/tpa [hráč]</span>
                             <span class="cmd-tag">Teleport</span>
                         </div>
-                        <p class="cmd-desc">Pošle hráči žádost o teleportování k němu.</p>
+                        <p class="cmd-desc">Pošle jinému hráči žádost o teleportování k němu.</p>
                         <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
                     </div>
 
@@ -1051,7 +1083,7 @@
                             <span class="cmd-code">/tpaccept</span>
                             <span class="cmd-tag">Teleport</span>
                         </div>
-                        <p class="cmd-desc">Potvrdí a přijme příchozí žádost o teleport.</p>
+                        <p class="cmd-desc">Potvrdí a přijme příchozí žádost o teleport od jiného hráče.</p>
                         <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
                     </div>
 
@@ -1064,31 +1096,86 @@
                         <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
                     </div>
 
+                    <!-- RPG & Statistiky -->
+                    <div class="cmd-card" data-cat="rpg" onclick="copyCommand('/skills')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/skills</span>
+                            <span class="cmd-tag">RPG</span>
+                        </div>
+                        <p class="cmd-desc">Otevře české menu dovedností (těžba, boj, rybaření, agility...) a statistiky postavy.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="rpg" onclick="copyCommand('/stats')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/stats [hráč]</span>
+                            <span class="cmd-tag">Statistiky</span>
+                        </div>
+                        <p class="cmd-desc">Zobrazí detailní grafické menu statistik (těžba, odehraný čas, killy) tvé nebo jiného hráče.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="rpg" onclick="copyCommand('/stats top')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/stats top</span>
+                            <span class="cmd-tag">Žebříčky</span>
+                        </div>
+                        <p class="cmd-desc">Zobrazí serverové žebříčky TOP hráčů podle vytěžených bloků, killů, času a peněz.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="rpg" onclick="copyCommand('/axgraves list')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/axgraves list</span>
+                            <span class="cmd-tag">Hroby</span>
+                        </div>
+                        <p class="cmd-desc">Zobrazí přesné souřadnice tvého hrobu a zbývající čas do vypršení 12hodinové ochrany.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
                     <!-- Ekonomika -->
                     <div class="cmd-card" data-cat="eco" onclick="copyCommand('/money')">
                         <div class="cmd-code-wrapper">
                             <span class="cmd-code">/money</span>
                             <span class="cmd-tag">Ekonomika</span>
                         </div>
-                        <p class="cmd-desc">Zobrazí tvůj aktuální stav herních financí.</p>
+                        <p class="cmd-desc">Zobrazí tvůj aktuální finanční stav herních mincí v peněžence.</p>
                         <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
                     </div>
 
                     <div class="cmd-card" data-cat="eco" onclick="copyCommand('/ah')">
                         <div class="cmd-code-wrapper">
                             <span class="cmd-code">/ah</span>
-                            <span class="cmd-tag">Ekonomika</span>
+                            <span class="cmd-tag">Aukce</span>
                         </div>
-                        <p class="cmd-desc">Otevře globální aukční dům pro nákup a prodej předmětů.</p>
+                        <p class="cmd-desc">Otevře globální aukční dům pro nákup a prodej surovin a vybavení mezi hráči.</p>
                         <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
                     </div>
 
                     <div class="cmd-card" data-cat="eco" onclick="copyCommand('/ah sell')">
                         <div class="cmd-code-wrapper">
                             <span class="cmd-code">/ah sell [cena]</span>
-                            <span class="cmd-tag">Ekonomika</span>
+                            <span class="cmd-tag">Aukce</span>
                         </div>
-                        <p class="cmd-desc">Vystaví předmět, který držíš v ruce, do aukce za férovou cenu.</p>
+                        <p class="cmd-desc">Vystaví předmět, který zrovna držíš v ruce, do globální aukce za zadanou částku.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="eco" onclick="copyCommand('/qs create')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/qs create [cena]</span>
+                            <span class="cmd-tag">Obchody</span>
+                        </div>
+                        <p class="cmd-desc">Vytvoří truhlicový obchod: vezmi item do ruky, podívej se na truhlu a zadej prodejní cenu.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="eco" onclick="copyCommand('/trade')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/trade [hráč]</span>
+                            <span class="cmd-tag">Obchodování</span>
+                        </div>
+                        <p class="cmd-desc">Otevře bezpečné grafické rozhraní pro výměnu itemů a peněz přímo z ruky do ruky.</p>
                         <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
                     </div>
 
@@ -1097,26 +1184,53 @@
                             <span class="cmd-code">/pay [hráč] [částka]</span>
                             <span class="cmd-tag">Ekonomika</span>
                         </div>
-                        <p class="cmd-desc">Převede zadanou finanční částku přímo jinému hráči.</p>
+                        <p class="cmd-desc">Převede zadanou finanční částku přímo z tvého účtu jinému hráči.</p>
                         <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
                     </div>
 
-                    <!-- Komunikace -->
-                    <div class="cmd-card" data-cat="chat" onclick="copyCommand('/msg')">
+                    <!-- Komunita & Zábava -->
+                    <div class="cmd-card" data-cat="fun" onclick="copyCommand('/sit')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/sit</span>
+                            <span class="cmd-tag">Pózy</span>
+                        </div>
+                        <p class="cmd-desc">Posadí tě na zem nebo libovolný blok (můžeš použít i /lay pro lehnutí a /crawl pro plazení).</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="fun" onclick="copyCommand('/skins')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/skins</span>
+                            <span class="cmd-tag">Vzhled</span>
+                        </div>
+                        <p class="cmd-desc">Otevře grafické menu pro výběr a okamžitou změnu skinu tvé postavy.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="fun" onclick="copyCommand('/reroll')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/reroll</span>
+                            <span class="cmd-tag">Vesničané</span>
+                        </div>
+                        <p class="cmd-desc">Při pohledu na vesničana s profesí přetočí jeho nabídky (můžeš ho také sebrat shift-klikem do kýblu!).</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="fun" onclick="copyCommand('/chatgames top')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/chatgames top</span>
+                            <span class="cmd-tag">Minihry</span>
+                        </div>
+                        <p class="cmd-desc">Zobrazí žebříček nejrychlejších luštitelů chat miniher (matematika, reflex, přesmyčky).</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
+                    <div class="cmd-card" data-cat="fun" onclick="copyCommand('/msg')">
                         <div class="cmd-code-wrapper">
                             <span class="cmd-code">/msg [hráč] [zpráva]</span>
                             <span class="cmd-tag">Chat</span>
                         </div>
-                        <p class="cmd-desc">Odešle soukromou zprávu vybranému hráči online.</p>
-                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
-                    </div>
-
-                    <div class="cmd-card" data-cat="chat" onclick="copyCommand('/r')">
-                        <div class="cmd-code-wrapper">
-                            <span class="cmd-code">/r [zpráva]</span>
-                            <span class="cmd-tag">Chat</span>
-                        </div>
-                        <p class="cmd-desc">Rychle odpoví na poslední obdrženou soukromou zprávu.</p>
+                        <p class="cmd-desc">Odešle soukromou zprávu vybranému hráči online (pro rychlou odpověď použij /r).</p>
                         <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
                     </div>
 
@@ -1145,7 +1259,7 @@
 
     <!-- Patička -->
     <footer>
-        © TrueBlock 2026 • Vytvořil HovadoMichal
+        © TrueBlock 2026 • Hard Vanilla+ Survival
     </footer>
 
     <script>
@@ -1186,7 +1300,6 @@
             }
         }
 
-        // Vytvoření 45 částic pro lehký a plynulý chod
         for (let i = 0; i < 45; i++) {
             particles.push(new Particle());
         }
@@ -1253,7 +1366,6 @@
                 triggerBtn.classList.add('active');
             }
 
-            // Plynulý posun na začátek stránky při změně pohledu
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -1262,10 +1374,8 @@
             const item = header.parentElement;
             const isOpen = item.classList.contains('open');
 
-            // Zavření všech ostatních akordeonů
             document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
 
-            // Otevření pouze kliknutého
             if (!isOpen) {
                 item.classList.add('open');
             }
@@ -1326,7 +1436,7 @@
                     const online = data.players.online || 0;
                     const max = data.players.max || 0;
                     const percentage = max > 0 ? Math.round((online / max) * 100) : 0;
-                    const version = data.version || "1.20+";
+                    const version = data.version || "26.3";
                     const motdHtml = (data.motd && data.motd.html && data.motd.html.length > 0)
                         ? data.motd.html.join('<br>')
                         : "Vítej na TrueBlock Survival!";
@@ -1348,7 +1458,6 @@
                         <div class="motd-box">${motdHtml}</div>
                     `;
 
-                    // Generování avatarů online hráčů přes Minotar API
                     if (data.players.list && data.players.list.length > 0) {
                         html += `
                             <div class="players-section-title">Hráči právě ve hře:</div>
