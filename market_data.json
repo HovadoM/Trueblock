@@ -1,0 +1,24 @@
+{
+  "updated_at": "2026-10-05T19:25:00+02:00",
+  "season": "autumn",
+  "season_day": 14,
+  "server_online": true,
+  "items": [
+    { "id": "diamond", "name": "💎 Diamant", "price": 48.5, "base": 50, "trend": "down", "mined_total": 1284, "note": "Vytěženo 1 284 ks" },
+    { "id": "netherite", "name": "🔥 Netherite Ingot", "price": 460.0, "base": 450, "trend": "up", "mined_total": 42, "note": "Vytěženo pouze 42 ks" },
+    { "id": "template", "name": "📜 Netherite Šablona", "price": 820.0, "base": 800, "trend": "up", "mined_total": 18, "note": "Nalezeno 18 ks" },
+    { "id": "emerald", "name": "💚 Smaragd", "price": 14.5, "base": 15, "trend": "neutral", "mined_total": 3520, "note": "Oběh u vesničanů" },
+    { "id": "gold", "name": "🪙 Zlatý Ingot", "price": 7.8, "base": 8, "trend": "down", "mined_total": 8410, "note": "Vytěženo 8 410 ks" },
+    { "id": "iron", "name": "⚙️ Železný Ingot", "price": 4.2, "base": 4, "trend": "up", "mined_total": 24900, "note": "Vytěženo 24 900 ks" },
+    { "id": "copper", "name": "🟫 Měděný Ingot", "price": 0.9, "base": 1, "trend": "down", "mined_total": 45100, "note": "Vysoký přebytek" },
+    { "id": "coal", "name": "🌑 Uhlí", "price": 2.1, "base": 1.5, "trend": "up", "mined_total": 32000, "note": "Sezónní poptávka" },
+    { "id": "redstone", "name": "⚡ Redstone", "price": 1.5, "base": 1.5, "trend": "neutral", "mined_total": 14200, "note": "Stabilní zásoby" },
+    { "id": "logs", "name": "🪓 Surové Dřevo", "price": 1.1, "base": 0.8, "trend": "up", "mined_total": 52000, "note": "Posekáno 52 000 ks" },
+    { "id": "stone", "name": "🪨 Hladký Kámen", "price": 0.5, "base": 0.5, "trend": "neutral", "mined_total": 110000, "note": "Běžný stavební kámen" },
+    { "id": "steak", "name": "🥩 Pečený Steak", "price": 0.9, "base": 1.0, "trend": "down", "mined_total": 9400, "note": "Podzimní přebytek ze stád" },
+    { "id": "wheat", "name": "🌾 Pšenice", "price": 0.4, "base": 0.5, "trend": "down", "mined_total": 18200, "note": "Sklizeno 18 200 ks" },
+    { "id": "totem", "name": "✨ Totem Nesmrtelnosti", "price": 360.0, "base": 350, "trend": "up", "mined_total": 26, "note": "Získáno z raidů: 26 ks" },
+    { "id": "blaze_rod", "name": "🔥 Blaze Rod", "price": 16.0, "base": 15, "trend": "up", "mined_total": 680, "note": "Získáno 680 ks" },
+    { "id": "shulker", "name": "📦 Shulker Box", "price": 290.0, "base": 280, "trend": "up", "mined_total": 85, "note": "Získáno z Endu: 85 ks" }
+  ]
+}
