@@ -339,9 +339,52 @@
         .status-header {
             display: flex;
             align-items: center;
-            gap: 15px;
+            justify-content: space-between;
             font-family: 'Outfit', sans-serif;
             font-size: 1.35em;
+            font-weight: 600;
+        }
+
+        .status-header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-refresh-status {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glass);
+            color: var(--text-muted);
+            border-radius: 10px;
+            padding: 6px 14px;
+            font-size: 0.72em;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.25s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        .btn-refresh-status:hover {
+            color: #fff;
+            background: rgba(14, 165, 233, 0.2);
+            border-color: var(--accent-blue);
+        }
+        .btn-refresh-status.spinning svg {
+            animation: spinRefresh 0.7s linear infinite;
+        }
+        @keyframes spinRefresh {
+            to { transform: rotate(360deg); }
+        }
+
+        .maintenance-badge {
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            color: #fbbf24;
+            padding: 3px 10px;
+            border-radius: 8px;
+            font-size: 0.85em;
             font-weight: 600;
         }
 
@@ -837,7 +880,7 @@
                     Java Edice
                 </span>
                 <span class="ip-address">play.trueblock.win</span>
-                <div class="ip-hint">Klikni pro zkopírování • Verze 26.3</div>
+                <div class="ip-hint">Klikni pro zkopírování • Verze 26.3 (podpora 1.20 - 26.x)</div>
                 <div id="toast-java" class="copy-toast">Zkopírováno!</div>
             </div>
 
@@ -1568,29 +1611,51 @@
         }
 
         // --- 7. DYNAMICKÝ MC STATUS + AVATARY HRÁČŮ ---
-        async function fetchServerStatus() {
+        let isFetchingStatus = false;
+
+        async function fetchServerStatus(isManual = false) {
             const card = document.getElementById('status-card');
+            const btn = document.getElementById('btn-refresh-mc');
+            if (isFetchingStatus) return;
+            isFetchingStatus = true;
+
+            if (btn) btn.classList.add('spinning');
+
             try {
-                const res = await fetch("https://api.mcsrvstat.us/2/play.trueblock.win");
+                // Přidání časové značky pro obejití lokální cache prohlížeče
+                const cacheBuster = Date.now();
+                const res = await fetch(`https://api.mcsrvstat.us/3/play.trueblock.win?t=${cacheBuster}`);
                 const data = await res.json();
 
                 if (data.online) {
-                    const online = data.players.online || 0;
-                    const max = data.players.max || 0;
+                    const online = (data.players && data.players.online !== undefined) ? data.players.online : 0;
+                    const max = (data.players && data.players.max !== undefined) ? data.players.max : 40;
                     const percentage = max > 0 ? Math.round((online / max) * 100) : 0;
-                    const version = data.version || "26.3";
-                    const motdHtml = (data.motd && data.motd.html && data.motd.html.length > 0)
-                        ? data.motd.html.join('<br>')
-                        : "Vítej na TrueBlock Survival!";
+                    const isMaint = (data.version && data.version.toLowerCase().includes("maintenance"));
+                    const version = isMaint ? "26.3 (Příprava startu)" : (data.version || "26.3");
+                    
+                    let motdHtml = "Vítej na TrueBlock Survival!";
+                    if (data.motd && data.motd.html && data.motd.html.length > 0) {
+                        motdHtml = data.motd.html.join('<br>');
+                    } else if (data.motd && data.motd.clean && data.motd.clean.length > 0) {
+                        motdHtml = data.motd.clean.join('<br>');
+                    }
 
                     let html = `
                         <div class="status-header">
-                            <div class="dot online"></div>
-                            <span>Server je <strong style="color:#22c55e;">Online</strong></span>
+                            <div class="status-header-left">
+                                <div class="dot online"></div>
+                                <span>Server je <strong style="color:#22c55e;">Online</strong></span>
+                                ${isMaint ? '<span class="maintenance-badge">🔒 Příprava / Whitelist</span>' : ''}
+                            </div>
+                            <button class="btn-refresh-status" id="btn-refresh-mc" onclick="fetchServerStatus(true)" title="Aktualizovat stav">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                                Obnovit
+                            </button>
                         </div>
                         <div>
-                            <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:1em; color:var(--text-muted);">
-                                <span>Aktivní hráči: <strong style="color:#fff;">${online} / ${max}</strong></span>
+                            <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:1em; color:var(--text-muted); flex-wrap:wrap; gap:6px;">
+                                <span>Hráči online: <strong style="color:#fff;">${online} / ${max}</strong></span>
                                 <span>Verze: <strong style="color:#fff;">${version}</strong></span>
                             </div>
                             <div class="player-bar-container">
@@ -1600,17 +1665,24 @@
                         <div class="motd-box">${motdHtml}</div>
                     `;
 
-                    if (data.players.list && data.players.list.length > 0) {
+                    if (data.players && data.players.list && data.players.list.length > 0) {
                         html += `
                             <div class="players-section-title">Hráči právě ve hře:</div>
                             <div class="players-grid">
                         `;
                         data.players.list.forEach(player => {
+                            const pName = (typeof player === 'object') ? player.name : player;
                             html += `
-                                <div class="player-head" data-name="${player}" style="background-image: url('https://minotar.net/avatar/${encodeURIComponent(player)}/40');"></div>
+                                <div class="player-head" data-name="${pName}" style="background-image: url('https://minotar.net/avatar/${encodeURIComponent(pName)}/40');"></div>
                             `;
                         });
                         html += `</div>`;
+                    } else if (online > 0) {
+                        html += `
+                            <div class="players-section-title" style="color: #94a3b8;">
+                                👥 Ve hře je právě <strong>${online} hráč(ů)</strong> (jména skryta v režimu přípravy).
+                            </div>
+                        `;
                     } else {
                         html += `
                             <div class="players-section-title" style="font-style: italic;">
@@ -1626,16 +1698,29 @@
             } catch (err) {
                 card.innerHTML = `
                     <div class="status-header">
-                        <div class="dot offline"></div>
-                        <span>Server je momentálně <strong style="color:#ef4444;">Offline</strong></span>
+                        <div class="status-header-left">
+                            <div class="dot offline"></div>
+                            <span>Server je momentálně <strong style="color:#ef4444;">Offline</strong></span>
+                        </div>
+                        <button class="btn-refresh-status" id="btn-refresh-mc" onclick="fetchServerStatus(true)" title="Zkusit znovu">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                            Zkusit znovu
+                        </button>
                     </div>
                     <div class="motd-box" style="color: var(--text-muted);">
                         Právě probíhá plánovaná údržba nebo restart serveru. Zkus se připojit za okamžik.
                     </div>
                 `;
+            } finally {
+                isFetchingStatus = false;
+                const newBtn = document.getElementById('btn-refresh-mc');
+                if (newBtn) newBtn.classList.remove('spinning');
             }
         }
+
+        // Prvotní načtení + automatické rychlé obnovování každých 25 sekund
         fetchServerStatus();
+        setInterval(() => fetchServerStatus(false), 25000);
 
         // --- 8. SCROLL OBSERVER REVEAL ---
         document.addEventListener("DOMContentLoaded", () => {
