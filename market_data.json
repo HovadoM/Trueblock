@@ -1,24 +1,919 @@
 {
-  "updated_at": "2026-10-05T20:30:00+02:00",
+  "updated_at": "2026-10-05T22:40:00+02:00",
   "season": "autumn",
-  "season_day": 14,
+  "season_day": 1,
   "server_online": true,
+  "status_note": "Před startem serveru – zásoby a těžba se začnou počítat od 7.10. 17:33",
   "items": [
-    { "id": "diamond", "name": "💎 Diamant", "price": 150.0, "base": 150, "trend": "up", "mined_total": 420, "note": "Stabilní pilíř měny" },
-    { "id": "netherite", "name": "🔥 Netherite Ingot", "price": 1800.0, "base": 1800, "trend": "up", "mined_total": 8, "note": "Luxusní endgame komodita" },
-    { "id": "template", "name": "📜 Netherite Šablona", "price": 3200.0, "base": 3200, "trend": "up", "mined_total": 3, "note": "Kování výbavy z Bastionu" },
-    { "id": "emerald", "name": "💚 Smaragd", "price": 35.0, "base": 35, "trend": "neutral", "mined_total": 1250, "note": "Obchod s vesničany" },
-    { "id": "gold", "name": "🪙 Zlatý Ingot", "price": 20.0, "base": 20, "trend": "neutral", "mined_total": 3100, "note": "Zlatá jablka a Piglini" },
-    { "id": "iron", "name": "⚙️ Železný Ingot", "price": 10.0, "base": 10, "trend": "up", "mined_total": 8900, "note": "Základní kov pro zbroj a stroje" },
-    { "id": "copper", "name": "🟫 Měděný Ingot", "price": 2.0, "base": 2, "trend": "down", "mined_total": 14200, "note": "Dekorativní stavební kov" },
-    { "id": "coal", "name": "🌑 Uhlí", "price": 4.7, "base": 3.5, "trend": "up", "mined_total": 12500, "note": "Sezónní palivo na topení a louče" },
-    { "id": "redstone", "name": "⚡ Redstone", "price": 3.0, "base": 3.0, "trend": "neutral", "mined_total": 5400, "note": "Technika a obvody" },
-    { "id": "logs", "name": "🪓 Surové Dřevo (Logs)", "price": 3.1, "base": 2.5, "trend": "up", "mined_total": 19000, "note": "Základní stavební dřevo" },
-    { "id": "stone", "name": "🪨 Hladký Kámen", "price": 1.0, "base": 1.0, "trend": "neutral", "mined_total": 45000, "note": "Základní stavební bloky" },
-    { "id": "steak", "name": "🥩 Pečený Steak", "price": 2.2, "base": 2.5, "trend": "down", "mined_total": 3800, "note": "Výživa a regenerace" },
-    { "id": "wheat", "name": "🌾 Pšenice", "price": 0.8, "base": 1.0, "trend": "down", "mined_total": 7200, "note": "Podzimní úroda pro dobytek" },
-    { "id": "totem", "name": "✨ Totem Nesmrtelnosti", "price": 1200.0, "base": 1200, "trend": "up", "mined_total": 5, "note": "Záchrana života v bojích" },
-    { "id": "blaze_rod", "name": "🔥 Blaze Rod", "price": 45.0, "base": 45, "trend": "up", "mined_total": 210, "note": "Lektvary a Ender oči" },
-    { "id": "shulker", "name": "📦 Shulker Box", "price": 1500.0, "base": 1500, "trend": "up", "mined_total": 12, "note": "Přenášení beden z Endu" }
+    {
+      "id": "diamond",
+      "name": "💎 Diamant",
+      "cat": "ores",
+      "base": 150,
+      "price": 150,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Stabilní pilíř měny"
+    },
+    {
+      "id": "netherite",
+      "name": "🔥 Netherite Ingot",
+      "cat": "ores",
+      "base": 1800,
+      "price": 1800,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Luxusní endgame komodita"
+    },
+    {
+      "id": "netherite_scrap",
+      "name": "🪨 Netherite Scrap",
+      "cat": "ores",
+      "base": 400,
+      "price": 400,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Surovina z Ancient Debris"
+    },
+    {
+      "id": "ancient_debris",
+      "name": "🌋 Ancient Debris",
+      "cat": "ores",
+      "base": 420,
+      "price": 420,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Nezničitelná ruda z Netheru"
+    },
+    {
+      "id": "template",
+      "name": "📜 Netherite Šablona",
+      "cat": "ores",
+      "base": 3200,
+      "price": 3200,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Kování výbavy z Bastionu"
+    },
+    {
+      "id": "emerald",
+      "name": "💚 Smaragd",
+      "cat": "ores",
+      "base": 35,
+      "price": 35,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Obchod s vesničany"
+    },
+    {
+      "id": "gold",
+      "name": "🪙 Zlatý Ingot",
+      "cat": "ores",
+      "base": 20,
+      "price": 20,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Zlatá jablka a Piglini"
+    },
+    {
+      "id": "iron",
+      "name": "⚙️ Železný Ingot",
+      "cat": "ores",
+      "base": 10,
+      "price": 10,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Základní kov pro zbroj a stroje"
+    },
+    {
+      "id": "copper",
+      "name": "🟫 Měděný Ingot",
+      "cat": "ores",
+      "base": 2,
+      "price": 2,
+      "trend": "down",
+      "mined_total": 0,
+      "note": "Dekorativní stavební kov"
+    },
+    {
+      "id": "coal",
+      "name": "🌑 Uhlí",
+      "cat": "ores",
+      "base": 3.5,
+      "price": 4.7,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Sezónní palivo na topení a louče"
+    },
+    {
+      "id": "redstone",
+      "name": "⚡ Redstone",
+      "cat": "ores",
+      "base": 3.0,
+      "price": 3.0,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Technika a obvody"
+    },
+    {
+      "id": "lapis",
+      "name": "💙 Lapis Lazuli",
+      "cat": "ores",
+      "base": 4.0,
+      "price": 4.0,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Enchantování výbavy"
+    },
+    {
+      "id": "amethyst",
+      "name": "🔮 Úlomek Ametystu",
+      "cat": "ores",
+      "base": 6.0,
+      "price": 6.0,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Akustika a dalekohledy"
+    },
+    {
+      "id": "quartz",
+      "name": "⚪ Nether Křemen",
+      "cat": "ores",
+      "base": 3.5,
+      "price": 3.5,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Stavby, komparátory, senzory"
+    },
+    {
+      "id": "elytra",
+      "name": "🪽 Elytra",
+      "cat": "endgame",
+      "base": 8500,
+      "price": 8500,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Křídla pro létání z End City"
+    },
+    {
+      "id": "totem",
+      "name": "✨ Totem Nesmrtelnosti",
+      "cat": "endgame",
+      "base": 1200,
+      "price": 1200,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Záchrana života v bojích"
+    },
+    {
+      "id": "shulker",
+      "name": "📦 Shulker Box",
+      "cat": "endgame",
+      "base": 1500,
+      "price": 1500,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Přenosné truhly z Endu"
+    },
+    {
+      "id": "shulker_shell",
+      "name": "🐚 Shulker Shell",
+      "cat": "endgame",
+      "base": 650,
+      "price": 650,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Krunýř na stavbu beden"
+    },
+    {
+      "id": "nether_star",
+      "name": "⭐ Nether Star",
+      "cat": "endgame",
+      "base": 6500,
+      "price": 6500,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Trofej z Withera na Beacon"
+    },
+    {
+      "id": "trident",
+      "name": "🔱 Trojzubec",
+      "cat": "endgame",
+      "base": 2800,
+      "price": 2800,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Vzácná zbraň z utopenců"
+    },
+    {
+      "id": "heart_sea",
+      "name": "💙 Srdce Moře",
+      "cat": "endgame",
+      "base": 3500,
+      "price": 3500,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Jádro podmořského Conduitu"
+    },
+    {
+      "id": "god_apple",
+      "name": "🍏 Enchanted Golden Apple",
+      "cat": "endgame",
+      "base": 4500,
+      "price": 4500,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Legendární jablko nesmrtelnosti"
+    },
+    {
+      "id": "heavy_core",
+      "name": "🔨 Heavy Core (Palcát)",
+      "cat": "endgame",
+      "base": 12000,
+      "price": 12000,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Jádro nové zbraně z 1.21"
+    },
+    {
+      "id": "trial_key",
+      "name": "🗝️ Ominous Trial Key",
+      "cat": "endgame",
+      "base": 350,
+      "price": 350,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Klíč do Trial Chamber trezorů"
+    },
+    {
+      "id": "beer",
+      "name": "🍺 Světlé Pivo (Classic Beer)",
+      "cat": "brewery",
+      "base": 45,
+      "price": 45,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Tradiční vařený ležák z ječmene a pšenice"
+    },
+    {
+      "id": "wheatbeer",
+      "name": "🌾 Pšeničné Pivo (Wheat Beer)",
+      "cat": "brewery",
+      "base": 50,
+      "price": 50,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Jemné svrchně kvašené pivo"
+    },
+    {
+      "id": "darkbeer",
+      "name": "🍺 Tmavý Ležák (Dark Beer)",
+      "cat": "brewery",
+      "base": 55,
+      "price": 55,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Hutné tmavé pivo z praženého sladu"
+    },
+    {
+      "id": "mead",
+      "name": "🍯 Lesní Medovina (Mead)",
+      "cat": "brewery",
+      "base": 75,
+      "price": 75,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Zrající medovina z dubových sudů"
+    },
+    {
+      "id": "ap_mead",
+      "name": "🍎 Jablečná Medovina",
+      "cat": "brewery",
+      "base": 80,
+      "price": 80,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Sladká medovina s jablečným moštem"
+    },
+    {
+      "id": "cidre",
+      "name": "🍏 Jablečný Cider",
+      "cat": "brewery",
+      "base": 40,
+      "price": 40,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Osvěžující perlivý ovocný cider"
+    },
+    {
+      "id": "apple_liquor",
+      "name": "🥃 Jablečný Likér",
+      "cat": "brewery",
+      "base": 95,
+      "price": 95,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Destilovaný silný ovocný likér"
+    },
+    {
+      "id": "wine",
+      "name": "🍷 Archivní Víno (Wine)",
+      "cat": "brewery",
+      "base": 120,
+      "price": 120,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Dlouho zrající víno v akáciovém sudu"
+    },
+    {
+      "id": "whiskey",
+      "name": "🥃 Dubová Whisky",
+      "cat": "brewery",
+      "base": 160,
+      "price": 160,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Třikrát destilovaná single malt whisky"
+    },
+    {
+      "id": "fire_whiskey",
+      "name": "🔥 Ohnivá Whisky (Nether)",
+      "cat": "brewery",
+      "base": 350,
+      "price": 350,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Destilát pálený v peci s Blaze Powderem"
+    },
+    {
+      "id": "rum",
+      "name": "🏴‍☠️ Karibský Rum",
+      "cat": "brewery",
+      "base": 140,
+      "price": 140,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Pálenka z třtinové melasy a cukru"
+    },
+    {
+      "id": "vodka",
+      "name": "❄️ Mrazivá Vodka",
+      "cat": "brewery",
+      "base": 95,
+      "price": 95,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Čistá bramborová vodka zahřeje v mrazu"
+    },
+    {
+      "id": "g_vodka",
+      "name": "🪙 Zlatá Vodka (Gold Edition)",
+      "cat": "brewery",
+      "base": 450,
+      "price": 450,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Exkluzivní destilát filtrovaný zlatem"
+    },
+    {
+      "id": "shroom_vodka",
+      "name": "🍄 Houbová Vodka",
+      "cat": "brewery",
+      "base": 110,
+      "price": 110,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Zemité aroma z hnědých a červených hub"
+    },
+    {
+      "id": "gin",
+      "name": "🍸 Suchý Jalovcový Gin",
+      "cat": "brewery",
+      "base": 130,
+      "price": 130,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Aromatický bylinkový gin"
+    },
+    {
+      "id": "tequila",
+      "name": "🌵 Zlatá Tequila",
+      "cat": "brewery",
+      "base": 150,
+      "price": 150,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Pálenka z pečeného pouštního kaktusu"
+    },
+    {
+      "id": "absinthe",
+      "name": "🌿 Zelený Absint",
+      "cat": "brewery",
+      "base": 280,
+      "price": 280,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Legendární pelyňkový likér pro odvážné"
+    },
+    {
+      "id": "coffee",
+      "name": "☕ Černá Káva (Espresso)",
+      "cat": "brewery",
+      "base": 35,
+      "price": 35,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Horký nápoj z kakaových bobů – dává Speed"
+    },
+    {
+      "id": "iced_coffee",
+      "name": "🧊 Ledová Káva",
+      "cat": "brewery",
+      "base": 40,
+      "price": 40,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Ledové osvěžení v letních vedrech"
+    },
+    {
+      "id": "hot_choc",
+      "name": "🍫 Horká Čokoláda",
+      "cat": "brewery",
+      "base": 45,
+      "price": 45,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Čokoláda s mlékem – zahřeje při námraze"
+    },
+    {
+      "id": "eggnog",
+      "name": "🥚 Vaječný Koňak",
+      "cat": "brewery",
+      "base": 65,
+      "price": 65,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Sváteční zimní vaječný likér"
+    },
+    {
+      "id": "cod",
+      "name": "🐟 Syrová Treska",
+      "cat": "fishing",
+      "base": 2.5,
+      "price": 2.5,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Běžný úlovek z jezer a moří"
+    },
+    {
+      "id": "salmon",
+      "name": "🍣 Syrový Losos",
+      "cat": "fishing",
+      "base": 3.5,
+      "price": 3.5,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Oblíbená říční ryba na sushi a uzení"
+    },
+    {
+      "id": "pufferfish",
+      "name": "🐡 Čtverzubec",
+      "cat": "fishing",
+      "base": 25,
+      "price": 25,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Lektvary dýchání pod vodou"
+    },
+    {
+      "id": "tropical_fish",
+      "name": "🐠 Tropická Rybka",
+      "cat": "fishing",
+      "base": 15,
+      "price": 15,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Akvarijní rybka z teplých oceánů"
+    },
+    {
+      "id": "golden_carp",
+      "name": "🪙 Zlatý Karas (Trofej)",
+      "cat": "fishing",
+      "base": 250,
+      "price": 250,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Vzácný úlovek z rybářské soutěže EMF"
+    },
+    {
+      "id": "ancient_bass",
+      "name": "👑 Prastarý Okoun",
+      "cat": "fishing",
+      "base": 480,
+      "price": 480,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Legendární ryba z hlubinného oceánu"
+    },
+    {
+      "id": "abyssal_eel",
+      "name": "⚡ Hlubinný Úhoř",
+      "cat": "fishing",
+      "base": 320,
+      "price": 320,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Elektrický úhoř z temných vod"
+    },
+    {
+      "id": "nautilus",
+      "name": "🌀 Nautilus Shell",
+      "cat": "fishing",
+      "base": 120,
+      "price": 120,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Mořská mušle vylovená prutem"
+    },
+    {
+      "id": "blaze_rod",
+      "name": "🔥 Blaze Rod",
+      "cat": "alchemy",
+      "base": 45,
+      "price": 45,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Lektvary a Ender oči"
+    },
+    {
+      "id": "ender_pearl",
+      "name": "🔮 Ender Perla",
+      "cat": "alchemy",
+      "base": 25,
+      "price": 25,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Teleportace a oči do Endu"
+    },
+    {
+      "id": "ghast_tear",
+      "name": "💧 Slza Ghasta",
+      "cat": "alchemy",
+      "base": 180,
+      "price": 180,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Regenerační lektvary a respawn draka"
+    },
+    {
+      "id": "gunpowder",
+      "name": "💣 Střelný Prach",
+      "cat": "alchemy",
+      "base": 15,
+      "price": 15,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Rachejtle pro elytru a TNT"
+    },
+    {
+      "id": "slime_ball",
+      "name": "🟢 Slizová Koule",
+      "cat": "alchemy",
+      "base": 25,
+      "price": 25,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Písty, vodítka a lektvary"
+    },
+    {
+      "id": "magma_cream",
+      "name": "🟠 Magma Cream",
+      "cat": "alchemy",
+      "base": 30,
+      "price": 30,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Lektvary ohnivzdornosti"
+    },
+    {
+      "id": "nether_wart",
+      "name": "🍄 Bradavice z Netheru",
+      "cat": "alchemy",
+      "base": 18,
+      "price": 18,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Základ všech lektvarů"
+    },
+    {
+      "id": "glowstone",
+      "name": "💡 Glowstone Dust",
+      "cat": "alchemy",
+      "base": 8,
+      "price": 8,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Zesilovač lektvarů a světlo"
+    },
+    {
+      "id": "dragon_breath",
+      "name": "🐉 Dračí Dech",
+      "cat": "alchemy",
+      "base": 250,
+      "price": 250,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Přetrvávající lektvary a šípy"
+    },
+    {
+      "id": "breeze_rod",
+      "name": "🌪️ Breeze Rod",
+      "cat": "alchemy",
+      "base": 85,
+      "price": 85,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Wind Charge a munice pro palcát"
+    },
+    {
+      "id": "phantom_membrane",
+      "name": "🦇 Membrána Phantoma",
+      "cat": "alchemy",
+      "base": 50,
+      "price": 50,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Oprava elytry a pomalý pád"
+    },
+    {
+      "id": "wither_skull",
+      "name": "💀 Lebka Withera",
+      "cat": "alchemy",
+      "base": 1400,
+      "price": 1400,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Vyvolání Withera v Netheru"
+    },
+    {
+      "id": "logs",
+      "name": "🪓 Surové Dřevo (Logs)",
+      "cat": "build",
+      "base": 2.5,
+      "price": 3.1,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Základní stavební dřevo"
+    },
+    {
+      "id": "stone",
+      "name": "🪨 Hladký Kámen",
+      "cat": "build",
+      "base": 1.0,
+      "price": 1.0,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Základní stavební bloky"
+    },
+    {
+      "id": "deepslate",
+      "name": "⬛ Hlubinný Kámen",
+      "cat": "build",
+      "base": 1.2,
+      "price": 1.2,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Tmavý odolný kámen z hlubin"
+    },
+    {
+      "id": "obsidian",
+      "name": "🟣 Obsidián",
+      "cat": "build",
+      "base": 20,
+      "price": 20,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Nether portály a odolné kryty"
+    },
+    {
+      "id": "crying_obsidian",
+      "name": "😭 Crying Obsidian",
+      "cat": "build",
+      "base": 45,
+      "price": 45,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Kotva pro respawn v Netheru"
+    },
+    {
+      "id": "bricks",
+      "name": "🧱 Cihly",
+      "cat": "build",
+      "base": 2.0,
+      "price": 2.0,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Tradiční stavební materiál"
+    },
+    {
+      "id": "sand",
+      "name": "🏜️ Písek",
+      "cat": "build",
+      "base": 0.8,
+      "price": 0.8,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Sklo, beton a stavby"
+    },
+    {
+      "id": "glass",
+      "name": "🪟 Sklo",
+      "cat": "build",
+      "base": 1.2,
+      "price": 1.2,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Okna, lucerny a skleníky"
+    },
+    {
+      "id": "terracotta",
+      "name": "🏺 Terakota",
+      "cat": "build",
+      "base": 3.0,
+      "price": 3.0,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Barevné bloky z Badlands"
+    },
+    {
+      "id": "prismarine",
+      "name": "🏛️ Prismarine",
+      "cat": "build",
+      "base": 8.0,
+      "price": 8.0,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Mořské monumentální bloky"
+    },
+    {
+      "id": "sea_lantern",
+      "name": "🏮 Mořská Lucerna",
+      "cat": "build",
+      "base": 22.0,
+      "price": 22.0,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Stylové podvodní osvětlení"
+    },
+    {
+      "id": "quartz_block",
+      "name": "🏛️ Křemenný Blok",
+      "cat": "build",
+      "base": 14.0,
+      "price": 14.0,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Mramorové antické stavby"
+    },
+    {
+      "id": "golden_carrot",
+      "name": "🥕 Zlatá Mrkev",
+      "cat": "farming",
+      "base": 18,
+      "price": 18,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Nejlepší saturace a zdraví"
+    },
+    {
+      "id": "steak",
+      "name": "🥩 Pečený Steak",
+      "cat": "farming",
+      "base": 2.5,
+      "price": 2.2,
+      "trend": "down",
+      "mined_total": 0,
+      "note": "Výživné hovězí maso"
+    },
+    {
+      "id": "porkchop",
+      "name": "🍖 Pečená Kotleta",
+      "cat": "farming",
+      "base": 2.4,
+      "price": 2.1,
+      "trend": "down",
+      "mined_total": 0,
+      "note": "Šťavnaté vepřové maso"
+    },
+    {
+      "id": "wheat",
+      "name": "🌾 Pšenice",
+      "cat": "farming",
+      "base": 1.0,
+      "price": 0.8,
+      "trend": "down",
+      "mined_total": 0,
+      "note": "Chov krav, chléb a pivo"
+    },
+    {
+      "id": "bread",
+      "name": "🍞 Čerstvý Chléb",
+      "cat": "farming",
+      "base": 2.8,
+      "price": 2.8,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Základní pekařské pečivo"
+    },
+    {
+      "id": "potato",
+      "name": "🥔 Brambory",
+      "cat": "farming",
+      "base": 0.8,
+      "price": 0.8,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Pečení a destilace vodky"
+    },
+    {
+      "id": "carrot",
+      "name": "🥕 Sladká Mrkev",
+      "cat": "farming",
+      "base": 0.8,
+      "price": 0.8,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Farmaření a zlaté mrkve"
+    },
+    {
+      "id": "melon",
+      "name": "🍉 Plátek Melounu",
+      "cat": "farming",
+      "base": 0.5,
+      "price": 0.5,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Rychlé občerstvení a lektvary"
+    },
+    {
+      "id": "pumpkin",
+      "name": "🎃 Dýně",
+      "cat": "farming",
+      "base": 1.5,
+      "price": 1.5,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Podzimní sklizeň, koláče, panáci"
+    },
+    {
+      "id": "sweet_berries",
+      "name": "🫐 Sladké Bobule",
+      "cat": "farming",
+      "base": 1.2,
+      "price": 1.2,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Lesní ovoce mizející v zimě"
+    },
+    {
+      "id": "sugar_cane",
+      "name": "🎋 Cukrová Třtina",
+      "cat": "farming",
+      "base": 1.5,
+      "price": 1.5,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Papír na knihy a rum"
+    },
+    {
+      "id": "leather",
+      "name": "🐮 Kůže",
+      "cat": "farming",
+      "base": 8.0,
+      "price": 8.0,
+      "trend": "up",
+      "mined_total": 0,
+      "note": "Knihy a termo-zbroj na zimu"
+    },
+    {
+      "id": "honeycomb",
+      "name": "🍯 Medová Plástev",
+      "cat": "farming",
+      "base": 15,
+      "price": 15,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Voskování mědi a svíčky"
+    },
+    {
+      "id": "wool",
+      "name": "🐑 Vlna",
+      "cat": "farming",
+      "base": 1.5,
+      "price": 1.5,
+      "trend": "neutral",
+      "mined_total": 0,
+      "note": "Postele a barevné dekorace"
+    }
   ]
 }

@@ -707,31 +707,91 @@
             color: var(--text-muted);
             margin: 0;
         }
-        .season-selector {
-            display: flex;
+        .season-badge-pill {
+            display: inline-flex;
+            align-items: center;
             gap: 8px;
+            padding: 8px 18px;
+            border-radius: 30px;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            color: #fbbf24;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .season-hazard-alert {
+            width: 100%;
+            background: rgba(220, 38, 38, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.35);
+            border-radius: 14px;
+            padding: 12px 18px;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        /* Styly pro Cenový Graf Burzy */
+        .market-chart-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.75), rgba(30, 41, 59, 0.6));
+            border: 1px solid rgba(14, 165, 233, 0.25);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+        .chart-pills {
+            display: flex;
+            gap: 6px;
             background: rgba(0, 0, 0, 0.35);
             padding: 5px;
             border-radius: 12px;
             border: 1px solid var(--border-glass);
+            flex-wrap: wrap;
         }
-        .season-btn {
+        .chart-pill {
             background: transparent;
             border: 1px solid transparent;
             color: var(--text-muted);
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 0.82em;
+            font-size: 0.85em;
             font-weight: 600;
             transition: all 0.2s ease;
         }
-        .season-btn:hover {
+        .chart-pill:hover {
             color: #fff;
+            background: rgba(255, 255, 255, 0.05);
         }
-        .season-btn.active {
+        .chart-pill.active {
             background: var(--accent-blue);
             color: #fff;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35);
+        }
+        .chart-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.9em;
+        }
+        .chart-stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .chart-stat-label {
+            color: var(--text-muted);
         }
         .market-controls {
             display: flex;
@@ -756,19 +816,56 @@
             font-weight: 600;
             font-size: 0.9em;
         }
-        .admin-market-panel {
-            background: rgba(0, 0, 0, 0.35);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 16px;
-            padding: 18px 22px;
-            margin-bottom: 20px;
-            display: none;
-            gap: 12px;
-            align-items: center;
+        @keyframes livePulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+        .live-pulse {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            animation: livePulse 2s infinite;
+        }
+        .market-categories {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 18px;
             flex-wrap: wrap;
         }
-        .admin-market-panel.active {
-            display: flex;
+        .market-cat-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-glass);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.88em;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .market-cat-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .market-cat-btn.active {
+            background: var(--accent-blue);
+            color: #fff;
+            border-color: var(--accent-blue);
+            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.35);
+        }
+        .price-table tbody tr {
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .price-table tbody tr:hover {
+            background: rgba(14, 165, 233, 0.08);
+        }
+        .price-table tbody tr.selected-row {
+            background: rgba(14, 165, 233, 0.16);
+            border-left: 3px solid var(--accent-blue);
         }
         .market-input {
             background: rgba(0, 0, 0, 0.5);
@@ -1328,6 +1425,59 @@
                         </div>
                     </div>
 
+                    <!-- Pravidlo 6: Hardcore Survival & Roční Období -->
+                    <div class="accordion-item" style="border: 1px solid rgba(56, 189, 248, 0.4); background: linear-gradient(135deg, rgba(14, 165, 233, 0.08), rgba(99, 102, 241, 0.05));">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span style="color: #38bdf8; font-weight: 700;">🧊 6. Hardcore Survival: Extrémní Roční Období</span>
+                            <svg class="accordion-icon" width="22" height="22" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                        </div>
+                        <div class="accordion-content">
+                            <p style="margin-bottom: 14px;">Na serveru běží <strong>reálný systém klimatu a teploty</strong>. Příroda ti nedá nic zadarmo a každé roční období představuje nekompromisní boj o přežití:</p>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-top: 12px;">
+                                <div style="background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 14px;">
+                                    <div style="font-weight: 700; color: #38bdf8; margin-bottom: 6px; font-size: 1.05em;">❄️ ZIMA: Mráz & Podchlazení</div>
+                                    <ul style="margin: 0; padding-left: 18px; font-size: 0.9em; color: #e2e8f0; line-height: 1.6;">
+                                        <li><strong>Mráz tě zabije:</strong> Bez zateplení obrazovka namrzá a začneš ztrácet životy (freeze damage).</li>
+                                        <li><strong>Kožené brnění:</strong> Funguje jako zimní termo-kombinéza – záchrana života venku!</li>
+                                        <li><strong>Zdroje tepla:</strong> Táboráky (Campfire), pece, louče nebo láva tě zahřívají.</li>
+                                        <li><strong>Voda je smrt:</strong> Pád do ledové vody v zimě znamená okamžitý šok a rychlé umrznutí.</li>
+                                        <li><strong>Zamrzající farmy:</strong> Plodiny venku nerostou. Stavěj vytápěné <em>skleníky se sklem a ohništěm</em>.</li>
+                                    </ul>
+                                </div>
+                                
+                                <div style="background: rgba(234, 88, 12, 0.1); border: 1px solid rgba(249, 115, 22, 0.3); border-radius: 12px; padding: 14px;">
+                                    <div style="font-weight: 700; color: #f97316; margin-bottom: 6px; font-size: 1.05em;">☀️ LÉTO: Úpal & Dehydratace</div>
+                                    <ul style="margin: 0; padding-left: 18px; font-size: 0.9em; color: #e2e8f0; line-height: 1.6;">
+                                        <li><strong>Pekelné horko:</strong> Teploty stoupají přes 40°C (zejména v pouštích a savanách).</li>
+                                        <li><strong>Kovové brnění pálí:</strong> Běh v plné zbroji (železo, netherite) na slunci tě upeče zaživa!</li>
+                                        <li><strong>Dehydratace:</strong> Hrozí hlad, slabost (Weakness), nevolnost a úpal.</li>
+                                        <li><strong>Chlazení & pití:</strong> Pij lahvičky s vodou, zdržuj se ve stínu nebo se koupej v řece.</li>
+                                        <li><strong>Vysychání půdy:</strong> Voda se může odpařovat, chraň úrodu stříškou.</li>
+                                    </ul>
+                                </div>
+
+                                <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 14px;">
+                                    <div style="font-weight: 700; color: #fbbf24; margin-bottom: 6px; font-size: 1.05em;">🍂 PODZIM: Nečasy & Hniloba</div>
+                                    <ul style="margin: 0; padding-left: 18px; font-size: 0.9em; color: #e2e8f0; line-height: 1.6;">
+                                        <li><strong>Husté mlhy a lijáky:</strong> Výrazně snížená dohlednost a vyšší spawn agresivních mobů.</li>
+                                        <li><strong>Hniloba úrody:</strong> Nesklizené obilí a zelenina na dešti podléhají hnilobě.</li>
+                                        <li><strong>Příprava paliva:</strong> Klíčový čas nakoupit uhlí, dřevo a připravit koženou výbavu.</li>
+                                    </ul>
+                                </div>
+
+                                <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 12px; padding: 14px;">
+                                    <div style="font-weight: 700; color: #4ade80; margin-bottom: 6px; font-size: 1.05em;">🌸 JARO: Tání & Bleskové Bouře</div>
+                                    <ul style="margin: 0; padding-left: 18px; font-size: 0.9em; color: #e2e8f0; line-height: 1.6;">
+                                        <li><strong>Bleskové bouřky:</strong> Velké riziko požárů – hromosvod (Lightning Rod) je nutnost!</li>
+                                        <li><strong>Tání a bahno:</strong> Sníh odtává a rozbředlá půda mírně zpomaluje běh.</li>
+                                        <li><strong>Probuzení přírody:</strong> Ideální období pro sázení plodin a venkovní stavby.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <!-- Doplňující upozornění -->
@@ -1525,6 +1675,15 @@
                         <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
                     </div>
 
+                    <div class="cmd-card" data-cat="rpg" onclick="copyCommand('/season')">
+                        <div class="cmd-code-wrapper">
+                            <span class="cmd-code">/season</span>
+                            <span class="cmd-tag">Klima</span>
+                        </div>
+                        <p class="cmd-desc">Zobrazí aktuální roční období světa, den sezóny, teplotu a předpověď počasí.</p>
+                        <div class="cmd-click-tip">📋 Klikni pro zkopírování</div>
+                    </div>
+
                     <!-- Ekonomika -->
                     <div class="cmd-card" data-cat="eco" onclick="copyCommand('/money')">
                         <div class="cmd-code-wrapper">
@@ -1693,49 +1852,93 @@
                         </div>
                     </div>
                     <div>
-                        <div style="font-size: 0.8em; color: var(--text-muted); margin-bottom: 6px; text-align: right;">Simulace období:</div>
-                        <div class="season-selector">
-                            <button class="season-btn" onclick="setSeason('spring')">🌸 Jaro</button>
-                            <button class="season-btn" onclick="setSeason('summer')">☀️ Léto</button>
-                            <button class="season-btn active" onclick="setSeason('autumn')">🍂 Podzim</button>
-                            <button class="season-btn" onclick="setSeason('winter')">❄️ Zima</button>
+                        <div class="season-badge-pill" id="currentSeasonBadge">
+                            🍂 Aktivní sezóna světa
+                        </div>
+                    </div>
+                    <!-- Survival Výstraha pro dané období -->
+                    <div class="season-hazard-alert" id="currentSeasonHazard">
+                        <div style="font-weight: 700; color: #f87171; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+                            <span>⚠️ PODZIMNÍ NEČASY: Ranní mlhy a vytrvalé deště</span>
+                        </div>
+                        <div style="font-size: 0.88em; color: #cbd5e1; line-height: 1.5;">
+                            Plodiny na polích začínají hnít, pokud je nesklidíš včas. Vykupuj uhlí na zimu dokud je levné a připrav si kožené zateplené oblečení!
                         </div>
                     </div>
                 </div>
 
-                <!-- Ovládací prvky burzy & Admin panel -->
-                <div class="market-controls">
-                    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-                        <input type="text" id="marketSearch" oninput="filterMarket()" placeholder="Hledat komoditu (např. diamant, uhlí, dřevo)..." class="market-input" style="width: 250px;">
-                        <span id="marketItemCount" style="font-size: 0.85em; color: var(--text-muted);">Zobrazeno 16 komodit</span>
-                        <span id="marketSyncBadge" style="font-size: 0.82em; padding: 4px 12px; border-radius: 20px; background: rgba(14, 165, 233, 0.15); color: #38bdf8; border: 1px solid rgba(14, 165, 233, 0.3); display: inline-flex; align-items: center; gap: 6px;">
-                            🔄 Ověřuji data serveru...
-                        </span>
+                <!-- Interaktivní Cenový Graf Burzy -->
+                <div class="market-chart-card">
+                    <div class="chart-header">
+                        <div>
+                            <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.25em; color: #fff; margin-bottom: 4px;">📈 Vývoj a trendy cen na burze</h3>
+                            <p style="font-size: 0.85em; color: var(--text-muted); margin: 0;">Sleduj vývoj cen komodit v průběhu ročních období a vliv těžby hráčů</p>
+                        </div>
+                        <div class="chart-pills" id="chartPills">
+                            <button class="chart-pill active" onclick="switchChartItem('index')">📊 Index trhu</button>
+                            <button class="chart-pill" onclick="switchChartItem('beer')">🍺 Pivo</button>
+                            <button class="chart-pill" onclick="switchChartItem('mead')">🍯 Medovina</button>
+                            <button class="chart-pill" onclick="switchChartItem('coffee')">☕ Káva</button>
+                            <button class="chart-pill" onclick="switchChartItem('whiskey')">🥃 Whisky</button>
+                            <button class="chart-pill" onclick="switchChartItem('diamond')">💎 Diamant</button>
+                            <button class="chart-pill" onclick="switchChartItem('netherite')">🔥 Netherite</button>
+                            <button class="chart-pill" onclick="switchChartItem('elytra')">🪽 Elytra</button>
+                            <button class="chart-pill" onclick="switchChartItem('totem')">✨ Totem</button>
+                            <button class="chart-pill" onclick="switchChartItem('coal')">🌑 Uhlí</button>
+                            <button class="chart-pill" onclick="switchChartItem('salmon')">🍣 Losos</button>
+                        </div>
                     </div>
-                    <div style="display: flex; gap: 8px;">
-                        <button class="btn-refresh-status" onclick="fetchLiveMarketData(true)" title="Zkontrolovat aktualizaci ze serveru (market_data.json)">
-                            📡 Synchronizovat
-                        </button>
-                        <button class="btn-refresh-status" onclick="fluctuateMarket()" title="Simulovat náhodné tržní výkyvy">
-                            🎲 Tržní výkyv
-                        </button>
-                        <button class="btn-refresh-status" onclick="toggleAdminMarket()" style="border-color: rgba(139, 92, 246, 0.4); color: #c084fc;">
-                            ⚙️ Rychlá úprava cen
-                        </button>
+                    <div style="position: relative; width: 100%; height: 260px; margin-top: 15px;">
+                        <canvas id="marketChartCanvas" style="width: 100%; height: 100%; display: block;"></canvas>
+                    </div>
+                    <div class="chart-footer">
+                        <div class="chart-stat">
+                            <span class="chart-stat-label">Vybraná komodita:</span>
+                            <strong id="chartSelectedName" style="color: #38bdf8;">Celkový Index Trhu</strong>
+                        </div>
+                        <div class="chart-stat">
+                            <span class="chart-stat-label">Aktuální hodnota:</span>
+                            <strong id="chartSelectedPrice" style="color: #22c55e;">150.0 TBX</strong>
+                        </div>
+                        <div class="chart-stat">
+                            <span class="chart-stat-label">Sezónní predikce:</span>
+                            <strong id="chartSelectedPrediction" style="color: #fbbf24;">Stabilní růst poptávky</strong>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Admin panel pro rychlou ruční editaci -->
-                <div id="adminMarketPanel" class="admin-market-panel">
-                    <span style="font-weight: 700; color: #c084fc; font-size: 0.9em;">🛠️ Rychlá ruční úprava ceny:</span>
-                    <select id="adminItemSelect" class="market-input"></select>
-                    <input type="number" id="adminNewPrice" placeholder="Nová cena ($)" class="market-input" style="width: 130px;" step="0.1">
-                    <button class="btn-refresh-status" onclick="applyAdminPrice()" style="background: var(--accent-purple); color: #fff;">
-                        Uložit na burzu
-                    </button>
-                    <button class="btn-refresh-status" onclick="resetMarketDefaults()" style="color: #fb7185;">
-                        Obnovit výchozí
-                    </button>
+                <!-- Rychlé Fulltextové Vyhledávání v Burze -->
+                <div class="search-box" style="margin: 25px 0 16px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                    <input type="text" id="marketSearch" oninput="filterMarket()" placeholder="🔍 Hledat komoditu (např. pivo, cider, whisky, diamant, losos, uhlí, káva, chléb)...">
+                    <button id="clearMarketSearch" onclick="clearMarketSearch()" style="display: none; background: transparent; border: none; color: var(--text-muted); font-size: 1.1em; cursor: pointer; padding: 0 10px;">✕</button>
+                </div>
+
+                <!-- Kategorie komodit -->
+                <div class="market-categories">
+                    <button class="market-cat-btn active" onclick="setMarketCategory('all', this)">Všechny (91)</button>
+                    <button class="market-cat-btn" onclick="setMarketCategory('brewery', this)">🍺 Pivovar & Nápoje (BreweryX)</button>
+                    <button class="market-cat-btn" onclick="setMarketCategory('ores', this)">💎 Drahokamy & Kovy</button>
+                    <button class="market-cat-btn" onclick="setMarketCategory('endgame', this)">✨ Endgame & Poklady</button>
+                    <button class="market-cat-btn" onclick="setMarketCategory('fishing', this)">🐟 Ryby & Oceán (EMF)</button>
+                    <button class="market-cat-btn" onclick="setMarketCategory('alchemy', this)">🧪 Lektvary & Droppy</button>
+                    <button class="market-cat-btn" onclick="setMarketCategory('build', this)">🪓 Stavební materiály</button>
+                    <button class="market-cat-btn" onclick="setMarketCategory('farming', this)">🌾 Jídlo & Farma</button>
+                </div>
+
+                <!-- Ovládací prvky burzy -->
+                <div class="market-controls">
+                    <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                        <span id="marketItemCount" style="font-size: 0.88em; font-weight: 600; color: #38bdf8;">Zobrazeno 91 komodit</span>
+                        <span id="marketSyncBadge" style="font-size: 0.82em; padding: 4px 12px; border-radius: 20px; background: rgba(34, 197, 94, 0.12); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); display: inline-flex; align-items: center; gap: 6px;">
+                            <span class="live-pulse"></span> Živá burza (auto-refresh 25s)
+                        </span>
+                    </div>
+                    <div>
+                        <button class="btn-refresh-status" onclick="fetchLiveMarketData(true)" title="Okamžitě aktualizovat ze serveru">
+                            📡 Obnovit data
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Tabulka Burzy -->
@@ -1892,6 +2095,12 @@
 
             if (tabId === 'tab-burza') {
                 renderMarket();
+                requestAnimationFrame(() => {
+                    switchChartItem(currentChartItem || 'index');
+                });
+                setTimeout(() => {
+                    switchChartItem(currentChartItem || 'index');
+                }, 80);
             }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2120,59 +2329,979 @@
         updateLaunchCountdown();
 
         // --- 10. KOMODITNÍ BURZA & ROČNÍ OBDOBÍ ---
-        const seasons = {
+                const seasons = {
             autumn: {
                 name: "Podzim (Období sklizně & přípravy)",
                 icon: "🍂",
-                desc: "Vysoká poptávka po uhlí a dřevu na topení. Ceny plodin po sklizni klesají o 15 %.",
-                multipliers: { "coal": 1.35, "logs": 1.25, "wheat": 0.85, "steak": 0.9, "ice": 0.8 }
+                desc: "Vysoká poptávka po uhlí a dřevu na topení. Čas zrání vína, medoviny a jablečného moštu.",
+                hazardTitle: "⚠️ PODZIMNÍ NEČASY: Ranní mlhy a vytrvalé deště",
+                hazardDesc: "Plodiny na polích začínají hnít, pokud je nesklidíš včas. Vykupuj uhlí na zimu dokud je levné a připrav si kožené zateplené oblečení!",
+                multipliers: { "coal": 1.35, "logs": 1.25, "wheat": 0.8, "steak": 0.88, "wine": 1.35, "mead": 1.30, "ap_mead": 1.35, "cidre": 1.25, "apple_liquor": 1.30, "shroom_vodka": 1.30, "pumpkin": 1.40, "honeycomb": 1.2, "leather": 1.15 }
             },
             winter: {
                 name: "Zima (Období mrazů & těžby)",
                 icon: "❄️",
-                desc: "Extrémní poptávka po ohni, jídle a palivu. Těžba v podzemí vzkvétá, diamanty a kovy mírně zlevňují.",
-                multipliers: { "coal": 1.6, "steak": 1.4, "logs": 1.3, "diamond": 0.9, "iron": 0.9 }
+                desc: "Extrémní poptávka po ohni, jídle, palivu a horkých nápojích. Těžba v podzemí vzkvétá, kovy zlevňují.",
+                hazardTitle: "🧊 EXTRÉMNÍ MRÁZ: Hypotermie & omrzliny",
+                hazardDesc: "Teploty padají hluboko pod nulu! Bez koženého brnění nebo ohně mrzneš na kost a ztrácíš životy. Voda zamrzá a úroda venku hyne – stavěj skleníky!",
+                multipliers: { "coal": 1.6, "steak": 1.4, "golden_carrot": 1.3, "logs": 1.3, "hot_choc": 1.55, "coffee": 1.45, "darkbeer": 1.30, "vodka": 1.40, "fire_whiskey": 1.50, "eggnog": 1.60, "whiskey": 1.35, "leather": 1.40, "diamond": 0.9, "iron": 0.9, "copper": 0.85 }
             },
             spring: {
                 name: "Jaro (Období obnovy & stavitelství)",
                 icon: "🌸",
-                desc: "Hráči začínají stavět velké projekty. Roste poptávka po kameni, cihlách, písku a sazenicích.",
-                multipliers: { "stone": 1.35, "logs": 1.2, "iron": 1.15, "coal": 0.85, "wheat": 1.2 }
+                desc: "Hráči staví velké projekty. Roste poptávka po kameni, cihlách, sazenicích, rybách a lehkém pšeničném pivu.",
+                hazardTitle: "⚡ TÁNÍ A BOUŘKOVÁ SEZÓNA: Prudké blesky & podmáčená půda",
+                hazardDesc: "Sníh taje a bahno mírně zpomaluje pohyb. Pozor na ničivé jarní bleskové bouřky – bez hromosvodu ti může shořet dřevěná střecha!",
+                multipliers: { "stone": 1.35, "bricks": 1.3, "sand": 1.25, "logs": 1.2, "wheatbeer": 1.25, "gin": 1.25, "absinthe": 1.30, "cod": 1.25, "salmon": 1.25, "iron": 1.15, "coal": 0.85, "wheat": 1.2 }
             },
             summer: {
                 name: "Léto (Období obchodu & výprav)",
                 icon: "☀️",
-                desc: "Čas na nebezpečné expedice, dobývání Netheru a Endu. Enormní zájem o totemy, lektvary a brnění.",
-                multipliers: { "totem": 1.3, "blaze_rod": 1.25, "netherite": 1.15, "steak": 1.1, "stone": 0.9 }
+                desc: "Čas na nebezpečné expedice, dobývání Netheru a Endu. Enormní zájem o totemy, ledovou kávu, cider a elytry.",
+                hazardTitle: "🔥 SPALUJÍCÍ HORKO: Úpal, dehydratace & přehřátí",
+                hazardDesc: "Teploty šplhají k 40°C! V plné kovové zbroji se upečeš zaživa. Nezapomeň pít lahvičky s čistou vodou a chladit se ve stínu!",
+                multipliers: { "elytra": 1.25, "totem": 1.3, "blaze_rod": 1.25, "iced_coffee": 1.45, "cidre": 1.35, "beer": 1.35, "tequila": 1.35, "rum": 1.30, "melon": 1.40, "netherite": 1.15, "gunpowder": 1.35, "steak": 1.1, "stone": 0.9 }
             }
         };
 
         let currentSeason = 'autumn';
 
-        // Výchozí komodity burzy (Fáze 1 - Startovní hodnotná ekonomika)
+                // Výchozí komodity burzy (Kompletní nabídka: 91 položek včetně BreweryX a EMF)
         const defaultMarketItems = [
-            { id: "diamond", name: "💎 Diamant", base: 150, price: 150, trend: "up", note: "Stabilní pilíř měny" },
-            { id: "netherite", name: "🔥 Netherite Ingot", base: 1800, price: 1800, trend: "up", note: "Luxusní endgame komodita" },
-            { id: "template", name: "📜 Netherite Šablona", base: 3200, price: 3200, trend: "up", note: "Kování výbavy z Bastionu" },
-            { id: "emerald", name: "💚 Smaragd", base: 35, price: 35, trend: "neutral", note: "Obchod s vesničany" },
-            { id: "gold", name: "🪙 Zlatý Ingot", base: 20, price: 20, trend: "neutral", note: "Zlatá jablka a Piglini" },
-            { id: "iron", name: "⚙️ Železný Ingot", base: 10, price: 10, trend: "up", note: "Základní kov pro zbroj a stroje" },
-            { id: "copper", name: "🟫 Měděný Ingot", base: 2, price: 2, trend: "down", note: "Dekorativní stavební kov" },
-            { id: "coal", name: "🌑 Uhlí", base: 3.5, price: 4.7, trend: "up", note: "Sezónní palivo na topení a louče" },
-            { id: "redstone", name: "⚡ Redstone", base: 3.0, price: 3.0, trend: "neutral", note: "Technika a obvody" },
-            { id: "logs", name: "🪓 Surové Dřevo (Logs)", base: 2.5, price: 3.1, trend: "up", note: "Základní stavební dřevo" },
-            { id: "stone", name: "🪨 Hladký Kámen", base: 1.0, price: 1.0, trend: "neutral", note: "Základní stavební bloky" },
-            { id: "steak", name: "🥩 Pečený Steak", base: 2.5, price: 2.2, trend: "down", note: "Výživa a regenerace" },
-            { id: "wheat", name: "🌾 Pšenice", base: 1.0, price: 0.8, trend: "down", note: "Podzimní úroda pro dobytek" },
-            { id: "totem", name: "✨ Totem Nesmrtelnosti", base: 1200, price: 1200, trend: "up", note: "Záchrana života v bojích" },
-            { id: "blaze_rod", name: "🔥 Blaze Rod", base: 45, price: 45, trend: "up", note: "Lektvary a Ender oči" },
-            { id: "shulker", name: "📦 Shulker Box", base: 1500, price: 1500, trend: "up", note: "Přenášení beden z Endu" }
-        ];
+            {
+                        "id": "diamond",
+                        "name": "💎 Diamant",
+                        "cat": "ores",
+                        "base": 150,
+                        "price": 150,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Stabilní pilíř měny"
+            },
+            {
+                        "id": "netherite",
+                        "name": "🔥 Netherite Ingot",
+                        "cat": "ores",
+                        "base": 1800,
+                        "price": 1800,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Luxusní endgame komodita"
+            },
+            {
+                        "id": "netherite_scrap",
+                        "name": "🪨 Netherite Scrap",
+                        "cat": "ores",
+                        "base": 400,
+                        "price": 400,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Surovina z Ancient Debris"
+            },
+            {
+                        "id": "ancient_debris",
+                        "name": "🌋 Ancient Debris",
+                        "cat": "ores",
+                        "base": 420,
+                        "price": 420,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Nezničitelná ruda z Netheru"
+            },
+            {
+                        "id": "template",
+                        "name": "📜 Netherite Šablona",
+                        "cat": "ores",
+                        "base": 3200,
+                        "price": 3200,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Kování výbavy z Bastionu"
+            },
+            {
+                        "id": "emerald",
+                        "name": "💚 Smaragd",
+                        "cat": "ores",
+                        "base": 35,
+                        "price": 35,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Obchod s vesničany"
+            },
+            {
+                        "id": "gold",
+                        "name": "🪙 Zlatý Ingot",
+                        "cat": "ores",
+                        "base": 20,
+                        "price": 20,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Zlatá jablka a Piglini"
+            },
+            {
+                        "id": "iron",
+                        "name": "⚙️ Železný Ingot",
+                        "cat": "ores",
+                        "base": 10,
+                        "price": 10,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Základní kov pro zbroj a stroje"
+            },
+            {
+                        "id": "copper",
+                        "name": "🟫 Měděný Ingot",
+                        "cat": "ores",
+                        "base": 2,
+                        "price": 2,
+                        "trend": "down",
+                        "mined_total": 0,
+                        "note": "Dekorativní stavební kov"
+            },
+            {
+                        "id": "coal",
+                        "name": "🌑 Uhlí",
+                        "cat": "ores",
+                        "base": 3.5,
+                        "price": 4.7,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Sezónní palivo na topení a louče"
+            },
+            {
+                        "id": "redstone",
+                        "name": "⚡ Redstone",
+                        "cat": "ores",
+                        "base": 3.0,
+                        "price": 3.0,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Technika a obvody"
+            },
+            {
+                        "id": "lapis",
+                        "name": "💙 Lapis Lazuli",
+                        "cat": "ores",
+                        "base": 4.0,
+                        "price": 4.0,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Enchantování výbavy"
+            },
+            {
+                        "id": "amethyst",
+                        "name": "🔮 Úlomek Ametystu",
+                        "cat": "ores",
+                        "base": 6.0,
+                        "price": 6.0,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Akustika a dalekohledy"
+            },
+            {
+                        "id": "quartz",
+                        "name": "⚪ Nether Křemen",
+                        "cat": "ores",
+                        "base": 3.5,
+                        "price": 3.5,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Stavby, komparátory, senzory"
+            },
+            {
+                        "id": "elytra",
+                        "name": "🪽 Elytra",
+                        "cat": "endgame",
+                        "base": 8500,
+                        "price": 8500,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Křídla pro létání z End City"
+            },
+            {
+                        "id": "totem",
+                        "name": "✨ Totem Nesmrtelnosti",
+                        "cat": "endgame",
+                        "base": 1200,
+                        "price": 1200,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Záchrana života v bojích"
+            },
+            {
+                        "id": "shulker",
+                        "name": "📦 Shulker Box",
+                        "cat": "endgame",
+                        "base": 1500,
+                        "price": 1500,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Přenosné truhly z Endu"
+            },
+            {
+                        "id": "shulker_shell",
+                        "name": "🐚 Shulker Shell",
+                        "cat": "endgame",
+                        "base": 650,
+                        "price": 650,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Krunýř na stavbu beden"
+            },
+            {
+                        "id": "nether_star",
+                        "name": "⭐ Nether Star",
+                        "cat": "endgame",
+                        "base": 6500,
+                        "price": 6500,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Trofej z Withera na Beacon"
+            },
+            {
+                        "id": "trident",
+                        "name": "🔱 Trojzubec",
+                        "cat": "endgame",
+                        "base": 2800,
+                        "price": 2800,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Vzácná zbraň z utopenců"
+            },
+            {
+                        "id": "heart_sea",
+                        "name": "💙 Srdce Moře",
+                        "cat": "endgame",
+                        "base": 3500,
+                        "price": 3500,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Jádro podmořského Conduitu"
+            },
+            {
+                        "id": "god_apple",
+                        "name": "🍏 Enchanted Golden Apple",
+                        "cat": "endgame",
+                        "base": 4500,
+                        "price": 4500,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Legendární jablko nesmrtelnosti"
+            },
+            {
+                        "id": "heavy_core",
+                        "name": "🔨 Heavy Core (Palcát)",
+                        "cat": "endgame",
+                        "base": 12000,
+                        "price": 12000,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Jádro nové zbraně z 1.21"
+            },
+            {
+                        "id": "trial_key",
+                        "name": "🗝️ Ominous Trial Key",
+                        "cat": "endgame",
+                        "base": 350,
+                        "price": 350,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Klíč do Trial Chamber trezorů"
+            },
+            {
+                        "id": "beer",
+                        "name": "🍺 Světlé Pivo (Classic Beer)",
+                        "cat": "brewery",
+                        "base": 45,
+                        "price": 45,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Tradiční vařený ležák z ječmene a pšenice"
+            },
+            {
+                        "id": "wheatbeer",
+                        "name": "🌾 Pšeničné Pivo (Wheat Beer)",
+                        "cat": "brewery",
+                        "base": 50,
+                        "price": 50,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Jemné svrchně kvašené pivo"
+            },
+            {
+                        "id": "darkbeer",
+                        "name": "🍺 Tmavý Ležák (Dark Beer)",
+                        "cat": "brewery",
+                        "base": 55,
+                        "price": 55,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Hutné tmavé pivo z praženého sladu"
+            },
+            {
+                        "id": "mead",
+                        "name": "🍯 Lesní Medovina (Mead)",
+                        "cat": "brewery",
+                        "base": 75,
+                        "price": 75,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Zrající medovina z dubových sudů"
+            },
+            {
+                        "id": "ap_mead",
+                        "name": "🍎 Jablečná Medovina",
+                        "cat": "brewery",
+                        "base": 80,
+                        "price": 80,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Sladká medovina s jablečným moštem"
+            },
+            {
+                        "id": "cidre",
+                        "name": "🍏 Jablečný Cider",
+                        "cat": "brewery",
+                        "base": 40,
+                        "price": 40,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Osvěžující perlivý ovocný cider"
+            },
+            {
+                        "id": "apple_liquor",
+                        "name": "🥃 Jablečný Likér",
+                        "cat": "brewery",
+                        "base": 95,
+                        "price": 95,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Destilovaný silný ovocný likér"
+            },
+            {
+                        "id": "wine",
+                        "name": "🍷 Archivní Víno (Wine)",
+                        "cat": "brewery",
+                        "base": 120,
+                        "price": 120,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Dlouho zrající víno v akáciovém sudu"
+            },
+            {
+                        "id": "whiskey",
+                        "name": "🥃 Dubová Whisky",
+                        "cat": "brewery",
+                        "base": 160,
+                        "price": 160,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Třikrát destilovaná single malt whisky"
+            },
+            {
+                        "id": "fire_whiskey",
+                        "name": "🔥 Ohnivá Whisky (Nether)",
+                        "cat": "brewery",
+                        "base": 350,
+                        "price": 350,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Destilát pálený v peci s Blaze Powderem"
+            },
+            {
+                        "id": "rum",
+                        "name": "🏴‍☠️ Karibský Rum",
+                        "cat": "brewery",
+                        "base": 140,
+                        "price": 140,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Pálenka z třtinové melasy a cukru"
+            },
+            {
+                        "id": "vodka",
+                        "name": "❄️ Mrazivá Vodka",
+                        "cat": "brewery",
+                        "base": 95,
+                        "price": 95,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Čistá bramborová vodka zahřeje v mrazu"
+            },
+            {
+                        "id": "g_vodka",
+                        "name": "🪙 Zlatá Vodka (Gold Edition)",
+                        "cat": "brewery",
+                        "base": 450,
+                        "price": 450,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Exkluzivní destilát filtrovaný zlatem"
+            },
+            {
+                        "id": "shroom_vodka",
+                        "name": "🍄 Houbová Vodka",
+                        "cat": "brewery",
+                        "base": 110,
+                        "price": 110,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Zemité aroma z hnědých a červených hub"
+            },
+            {
+                        "id": "gin",
+                        "name": "🍸 Suchý Jalovcový Gin",
+                        "cat": "brewery",
+                        "base": 130,
+                        "price": 130,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Aromatický bylinkový gin"
+            },
+            {
+                        "id": "tequila",
+                        "name": "🌵 Zlatá Tequila",
+                        "cat": "brewery",
+                        "base": 150,
+                        "price": 150,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Pálenka z pečeného pouštního kaktusu"
+            },
+            {
+                        "id": "absinthe",
+                        "name": "🌿 Zelený Absint",
+                        "cat": "brewery",
+                        "base": 280,
+                        "price": 280,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Legendární pelyňkový likér pro odvážné"
+            },
+            {
+                        "id": "coffee",
+                        "name": "☕ Černá Káva (Espresso)",
+                        "cat": "brewery",
+                        "base": 35,
+                        "price": 35,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Horký nápoj z kakaových bobů – dává Speed"
+            },
+            {
+                        "id": "iced_coffee",
+                        "name": "🧊 Ledová Káva",
+                        "cat": "brewery",
+                        "base": 40,
+                        "price": 40,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Ledové osvěžení v letních vedrech"
+            },
+            {
+                        "id": "hot_choc",
+                        "name": "🍫 Horká Čokoláda",
+                        "cat": "brewery",
+                        "base": 45,
+                        "price": 45,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Čokoláda s mlékem – zahřeje při námraze"
+            },
+            {
+                        "id": "eggnog",
+                        "name": "🥚 Vaječný Koňak",
+                        "cat": "brewery",
+                        "base": 65,
+                        "price": 65,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Sváteční zimní vaječný likér"
+            },
+            {
+                        "id": "cod",
+                        "name": "🐟 Syrová Treska",
+                        "cat": "fishing",
+                        "base": 2.5,
+                        "price": 2.5,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Běžný úlovek z jezer a moří"
+            },
+            {
+                        "id": "salmon",
+                        "name": "🍣 Syrový Losos",
+                        "cat": "fishing",
+                        "base": 3.5,
+                        "price": 3.5,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Oblíbená říční ryba na sushi a uzení"
+            },
+            {
+                        "id": "pufferfish",
+                        "name": "🐡 Čtverzubec",
+                        "cat": "fishing",
+                        "base": 25,
+                        "price": 25,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Lektvary dýchání pod vodou"
+            },
+            {
+                        "id": "tropical_fish",
+                        "name": "🐠 Tropická Rybka",
+                        "cat": "fishing",
+                        "base": 15,
+                        "price": 15,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Akvarijní rybka z teplých oceánů"
+            },
+            {
+                        "id": "golden_carp",
+                        "name": "🪙 Zlatý Karas (Trofej)",
+                        "cat": "fishing",
+                        "base": 250,
+                        "price": 250,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Vzácný úlovek z rybářské soutěže EMF"
+            },
+            {
+                        "id": "ancient_bass",
+                        "name": "👑 Prastarý Okoun",
+                        "cat": "fishing",
+                        "base": 480,
+                        "price": 480,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Legendární ryba z hlubinného oceánu"
+            },
+            {
+                        "id": "abyssal_eel",
+                        "name": "⚡ Hlubinný Úhoř",
+                        "cat": "fishing",
+                        "base": 320,
+                        "price": 320,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Elektrický úhoř z temných vod"
+            },
+            {
+                        "id": "nautilus",
+                        "name": "🌀 Nautilus Shell",
+                        "cat": "fishing",
+                        "base": 120,
+                        "price": 120,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Mořská mušle vylovená prutem"
+            },
+            {
+                        "id": "blaze_rod",
+                        "name": "🔥 Blaze Rod",
+                        "cat": "alchemy",
+                        "base": 45,
+                        "price": 45,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Lektvary a Ender oči"
+            },
+            {
+                        "id": "ender_pearl",
+                        "name": "🔮 Ender Perla",
+                        "cat": "alchemy",
+                        "base": 25,
+                        "price": 25,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Teleportace a oči do Endu"
+            },
+            {
+                        "id": "ghast_tear",
+                        "name": "💧 Slza Ghasta",
+                        "cat": "alchemy",
+                        "base": 180,
+                        "price": 180,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Regenerační lektvary a respawn draka"
+            },
+            {
+                        "id": "gunpowder",
+                        "name": "💣 Střelný Prach",
+                        "cat": "alchemy",
+                        "base": 15,
+                        "price": 15,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Rachejtle pro elytru a TNT"
+            },
+            {
+                        "id": "slime_ball",
+                        "name": "🟢 Slizová Koule",
+                        "cat": "alchemy",
+                        "base": 25,
+                        "price": 25,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Písty, vodítka a lektvary"
+            },
+            {
+                        "id": "magma_cream",
+                        "name": "🟠 Magma Cream",
+                        "cat": "alchemy",
+                        "base": 30,
+                        "price": 30,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Lektvary ohnivzdornosti"
+            },
+            {
+                        "id": "nether_wart",
+                        "name": "🍄 Bradavice z Netheru",
+                        "cat": "alchemy",
+                        "base": 18,
+                        "price": 18,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Základ všech lektvarů"
+            },
+            {
+                        "id": "glowstone",
+                        "name": "💡 Glowstone Dust",
+                        "cat": "alchemy",
+                        "base": 8,
+                        "price": 8,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Zesilovač lektvarů a světlo"
+            },
+            {
+                        "id": "dragon_breath",
+                        "name": "🐉 Dračí Dech",
+                        "cat": "alchemy",
+                        "base": 250,
+                        "price": 250,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Přetrvávající lektvary a šípy"
+            },
+            {
+                        "id": "breeze_rod",
+                        "name": "🌪️ Breeze Rod",
+                        "cat": "alchemy",
+                        "base": 85,
+                        "price": 85,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Wind Charge a munice pro palcát"
+            },
+            {
+                        "id": "phantom_membrane",
+                        "name": "🦇 Membrána Phantoma",
+                        "cat": "alchemy",
+                        "base": 50,
+                        "price": 50,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Oprava elytry a pomalý pád"
+            },
+            {
+                        "id": "wither_skull",
+                        "name": "💀 Lebka Withera",
+                        "cat": "alchemy",
+                        "base": 1400,
+                        "price": 1400,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Vyvolání Withera v Netheru"
+            },
+            {
+                        "id": "logs",
+                        "name": "🪓 Surové Dřevo (Logs)",
+                        "cat": "build",
+                        "base": 2.5,
+                        "price": 3.1,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Základní stavební dřevo"
+            },
+            {
+                        "id": "stone",
+                        "name": "🪨 Hladký Kámen",
+                        "cat": "build",
+                        "base": 1.0,
+                        "price": 1.0,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Základní stavební bloky"
+            },
+            {
+                        "id": "deepslate",
+                        "name": "⬛ Hlubinný Kámen",
+                        "cat": "build",
+                        "base": 1.2,
+                        "price": 1.2,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Tmavý odolný kámen z hlubin"
+            },
+            {
+                        "id": "obsidian",
+                        "name": "🟣 Obsidián",
+                        "cat": "build",
+                        "base": 20,
+                        "price": 20,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Nether portály a odolné kryty"
+            },
+            {
+                        "id": "crying_obsidian",
+                        "name": "😭 Crying Obsidian",
+                        "cat": "build",
+                        "base": 45,
+                        "price": 45,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Kotva pro respawn v Netheru"
+            },
+            {
+                        "id": "bricks",
+                        "name": "🧱 Cihly",
+                        "cat": "build",
+                        "base": 2.0,
+                        "price": 2.0,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Tradiční stavební materiál"
+            },
+            {
+                        "id": "sand",
+                        "name": "🏜️ Písek",
+                        "cat": "build",
+                        "base": 0.8,
+                        "price": 0.8,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Sklo, beton a stavby"
+            },
+            {
+                        "id": "glass",
+                        "name": "🪟 Sklo",
+                        "cat": "build",
+                        "base": 1.2,
+                        "price": 1.2,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Okna, lucerny a skleníky"
+            },
+            {
+                        "id": "terracotta",
+                        "name": "🏺 Terakota",
+                        "cat": "build",
+                        "base": 3.0,
+                        "price": 3.0,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Barevné bloky z Badlands"
+            },
+            {
+                        "id": "prismarine",
+                        "name": "🏛️ Prismarine",
+                        "cat": "build",
+                        "base": 8.0,
+                        "price": 8.0,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Mořské monumentální bloky"
+            },
+            {
+                        "id": "sea_lantern",
+                        "name": "🏮 Mořská Lucerna",
+                        "cat": "build",
+                        "base": 22.0,
+                        "price": 22.0,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Stylové podvodní osvětlení"
+            },
+            {
+                        "id": "quartz_block",
+                        "name": "🏛️ Křemenný Blok",
+                        "cat": "build",
+                        "base": 14.0,
+                        "price": 14.0,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Mramorové antické stavby"
+            },
+            {
+                        "id": "golden_carrot",
+                        "name": "🥕 Zlatá Mrkev",
+                        "cat": "farming",
+                        "base": 18,
+                        "price": 18,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Nejlepší saturace a zdraví"
+            },
+            {
+                        "id": "steak",
+                        "name": "🥩 Pečený Steak",
+                        "cat": "farming",
+                        "base": 2.5,
+                        "price": 2.2,
+                        "trend": "down",
+                        "mined_total": 0,
+                        "note": "Výživné hovězí maso"
+            },
+            {
+                        "id": "porkchop",
+                        "name": "🍖 Pečená Kotleta",
+                        "cat": "farming",
+                        "base": 2.4,
+                        "price": 2.1,
+                        "trend": "down",
+                        "mined_total": 0,
+                        "note": "Šťavnaté vepřové maso"
+            },
+            {
+                        "id": "wheat",
+                        "name": "🌾 Pšenice",
+                        "cat": "farming",
+                        "base": 1.0,
+                        "price": 0.8,
+                        "trend": "down",
+                        "mined_total": 0,
+                        "note": "Chov krav, chléb a pivo"
+            },
+            {
+                        "id": "bread",
+                        "name": "🍞 Čerstvý Chléb",
+                        "cat": "farming",
+                        "base": 2.8,
+                        "price": 2.8,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Základní pekařské pečivo"
+            },
+            {
+                        "id": "potato",
+                        "name": "🥔 Brambory",
+                        "cat": "farming",
+                        "base": 0.8,
+                        "price": 0.8,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Pečení a destilace vodky"
+            },
+            {
+                        "id": "carrot",
+                        "name": "🥕 Sladká Mrkev",
+                        "cat": "farming",
+                        "base": 0.8,
+                        "price": 0.8,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Farmaření a zlaté mrkve"
+            },
+            {
+                        "id": "melon",
+                        "name": "🍉 Plátek Melounu",
+                        "cat": "farming",
+                        "base": 0.5,
+                        "price": 0.5,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Rychlé občerstvení a lektvary"
+            },
+            {
+                        "id": "pumpkin",
+                        "name": "🎃 Dýně",
+                        "cat": "farming",
+                        "base": 1.5,
+                        "price": 1.5,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Podzimní sklizeň, koláče, panáci"
+            },
+            {
+                        "id": "sweet_berries",
+                        "name": "🫐 Sladké Bobule",
+                        "cat": "farming",
+                        "base": 1.2,
+                        "price": 1.2,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Lesní ovoce mizející v zimě"
+            },
+            {
+                        "id": "sugar_cane",
+                        "name": "🎋 Cukrová Třtina",
+                        "cat": "farming",
+                        "base": 1.5,
+                        "price": 1.5,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Papír na knihy a rum"
+            },
+            {
+                        "id": "leather",
+                        "name": "🐮 Kůže",
+                        "cat": "farming",
+                        "base": 8.0,
+                        "price": 8.0,
+                        "trend": "up",
+                        "mined_total": 0,
+                        "note": "Knihy a termo-zbroj na zimu"
+            },
+            {
+                        "id": "honeycomb",
+                        "name": "🍯 Medová Plástev",
+                        "cat": "farming",
+                        "base": 15,
+                        "price": 15,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Voskování mědi a svíčky"
+            },
+            {
+                        "id": "wool",
+                        "name": "🐑 Vlna",
+                        "cat": "farming",
+                        "base": 1.5,
+                        "price": 1.5,
+                        "trend": "neutral",
+                        "mined_total": 0,
+                        "note": "Postele a barevné dekorace"
+            }
+];
 
-        let marketItems = JSON.parse(localStorage.getItem('tb_market_items_v2')) || JSON.parse(JSON.stringify(defaultMarketItems));
+        let marketItems = JSON.parse(localStorage.getItem('tb_market_items_v5')) || JSON.parse(JSON.stringify(defaultMarketItems));
 
         function saveMarket() {
-            localStorage.setItem('tb_market_items_v2', JSON.stringify(marketItems));
+            localStorage.setItem('tb_market_items_v5', JSON.stringify(marketItems));
+        }
+
+        function clearMarketSearch() {
+            const input = document.getElementById('marketSearch');
+            if (input) {
+                input.value = '';
+                filterMarket();
+                input.focus();
+            }
+        }
+
+        let currentMarketCat = 'all';
+
+        function setMarketCategory(cat, btn) {
+            currentMarketCat = cat;
+            document.querySelectorAll('.market-cat-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderMarket();
         }
 
         function setSeason(seasonKey, recalc = true) {
@@ -2183,14 +3312,24 @@
             const iconEl = document.getElementById('currentSeasonIcon');
             const nameEl = document.getElementById('currentSeasonName');
             const descEl = document.getElementById('currentSeasonDesc');
+            const badgeEl = document.getElementById('currentSeasonBadge');
 
             if (iconEl) iconEl.innerText = s.icon;
             if (nameEl) nameEl.innerText = s.name;
             if (descEl) descEl.innerText = s.desc;
+            if (badgeEl) badgeEl.innerHTML = `${s.icon} Aktivní sezóna světa`;
 
-            document.querySelectorAll('.season-btn').forEach(btn => btn.classList.remove('active'));
-            const activeBtn = Array.from(document.querySelectorAll('.season-btn')).find(b => b.innerText.includes(s.icon));
-            if (activeBtn) activeBtn.classList.add('active');
+            const hazardEl = document.getElementById('currentSeasonHazard');
+            if (hazardEl && s.hazardTitle) {
+                hazardEl.innerHTML = `
+                    <div style="font-weight: 700; color: #f87171; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+                        <span>${s.hazardTitle}</span>
+                    </div>
+                    <div style="font-size: 0.88em; color: #cbd5e1; line-height: 1.5;">
+                        ${s.hazardDesc}
+                    </div>
+                `;
+            }
 
             if (recalc) {
                 // Přepočítání cen podle ročního období
@@ -2205,26 +3344,220 @@
                 saveMarket();
             }
             renderMarket();
+            drawMarketChart(currentChartItem);
         }
+
+        // --- CENOVÝ GRAF BURZY & TRENDY PRO VŠECHNY POLOŽKY ---
+        let currentChartItem = 'index';
+
+        function getChartDataForItem(itemId) {
+            if (itemId === 'index') {
+                return {
+                    name: "Celkový Index Trhu",
+                    data: [110, 125, 138, 150, 158],
+                    labels: ['Start (Jaro)', 'Léto', 'Podzim (Dnes)', 'Přelom zimy', 'Zima'],
+                    color: '#0ea5e9',
+                    prediction: "Stabilní růst poptávky",
+                    current: "150.0 TBX"
+                };
+            }
+
+            const item = marketItems.find(x => x.id === itemId);
+            if (!item) return getChartDataForItem('index');
+
+            const sSpring = seasons.spring.multipliers[item.id] || 1.0;
+            const sSummer = seasons.summer.multipliers[item.id] || 1.0;
+            const sAutumn = seasons.autumn.multipliers[item.id] || 1.0;
+            const sWinter = seasons.winter.multipliers[item.id] || 1.0;
+
+            const p1 = Math.round(item.base * sSpring * 0.95 * 10) / 10;
+            const p2 = Math.round(item.base * sSummer * 10) / 10;
+            const p3 = item.price; // Současná cena
+            const p4 = Math.round(item.base * ((sAutumn + sWinter) / 2) * 10) / 10;
+            const p5 = Math.round(item.base * sWinter * 10) / 10;
+
+            let pred = "Stabilní vyrovnaná hladina";
+            if (sWinter > sAutumn) pred = "Očekávaný výrazný růst před zimou";
+            if (sWinter < sAutumn) pred = "Očekávaný mírný pokles ceny v zimě";
+
+            let color = '#38bdf8';
+            if (item.cat === 'endgame') color = '#ec4899';
+            if (item.cat === 'brewery') color = '#f59e0b';
+            if (item.cat === 'fishing') color = '#06b6d4';
+            if (item.cat === 'alchemy') color = '#a855f7';
+            if (item.cat === 'build') color = '#22c55e';
+            if (item.cat === 'farming') color = '#84cc16';
+
+            return {
+                name: item.name,
+                data: [p1, p2, p3, p4, p5],
+                labels: ['Jaro', 'Léto', 'Podzim (Teď)', 'Předjaří', 'Zima'],
+                color: color,
+                prediction: pred,
+                current: item.price.toLocaleString('cs-CZ') + ' $'
+            };
+        }
+
+        function switchChartItem(itemId) {
+            currentChartItem = itemId;
+            document.querySelectorAll('.chart-pill').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = Array.from(document.querySelectorAll('.chart-pill')).find(b => b.getAttribute('onclick')?.includes(`'${itemId}'`));
+            if (activeBtn) activeBtn.classList.add('active');
+
+            const data = getChartDataForItem(itemId);
+            const nameEl = document.getElementById('chartSelectedName');
+            const priceEl = document.getElementById('chartSelectedPrice');
+            const predEl = document.getElementById('chartSelectedPrediction');
+            if (nameEl) nameEl.innerText = data.name;
+            if (priceEl) priceEl.innerText = data.current;
+            if (predEl) predEl.innerText = data.prediction;
+
+            drawMarketChart(itemId);
+        }
+
+        function drawMarketChart(itemId) {
+            const canvas = document.getElementById('marketChartCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const rect = canvas.getBoundingClientRect();
+
+            let width = rect.width;
+            let height = rect.height;
+            if (!width || width === 0) {
+                width = canvas.parentElement ? canvas.parentElement.clientWidth : 0;
+            }
+            if (!height || height === 0) {
+                height = 260;
+            }
+            if (!width || width === 0) {
+                setTimeout(() => drawMarketChart(itemId), 60);
+                return;
+            }
+
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            ctx.scale(dpr, dpr);
+            ctx.clearRect(0, 0, width, height);
+
+            const ds = getChartDataForItem(itemId);
+            const data = ds.data;
+            const labels = ds.labels;
+
+            const paddingLeft = 54;
+            const paddingRight = 40;
+            const paddingTop = 32;
+            const paddingBottom = 42;
+
+            const chartW = width - paddingLeft - paddingRight;
+            const chartH = height - paddingTop - paddingBottom;
+
+            const minVal = Math.min(...data) * 0.85;
+            const maxVal = Math.max(...data) * 1.15;
+
+            // Mřížka (vodorovné čáry)
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
+            ctx.lineWidth = 1;
+            const gridRows = 4;
+            for (let i = 0; i <= gridRows; i++) {
+                const y = paddingTop + (chartH / gridRows) * i;
+                ctx.beginPath();
+                ctx.moveTo(paddingLeft, y);
+                ctx.lineTo(width - paddingRight, y);
+                ctx.stroke();
+
+                const val = Math.round(maxVal - ((maxVal - minVal) / gridRows) * i);
+                ctx.fillStyle = 'rgba(148, 163, 184, 0.6)';
+                ctx.font = '11px Poppins, sans-serif';
+                ctx.textAlign = 'right';
+                ctx.fillText(val + (itemId === 'index' ? ' TBX' : ' $'), paddingLeft - 8, y + 4);
+            }
+
+            // Výpočet souřadnic bodů
+            const points = data.map((val, idx) => {
+                const x = paddingLeft + (chartW / (data.length - 1)) * idx;
+                const y = paddingTop + chartH - ((val - minVal) / (maxVal - minVal)) * chartH;
+                return { x, y, val, label: labels[idx] };
+            });
+
+            // Vyplnění oblasti pod křivkou (Gradient)
+            const grad = ctx.createLinearGradient(0, paddingTop, 0, height - paddingBottom);
+            grad.addColorStop(0, ds.color + '44');
+            grad.addColorStop(1, ds.color + '00');
+
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            for (let i = 0; i < points.length - 1; i++) {
+                const xc = (points[i].x + points[i + 1].x) / 2;
+                const yc = (points[i].y + points[i + 1].y) / 2;
+                ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+            }
+            ctx.lineTo(points[points.length - 1].x, height - paddingBottom);
+            ctx.lineTo(points[0].x, height - paddingBottom);
+            ctx.closePath();
+            ctx.fillStyle = grad;
+            ctx.fill();
+
+            // Linka grafu s neonovým efektem
+            ctx.shadowColor = ds.color;
+            ctx.shadowBlur = 12;
+            ctx.strokeStyle = ds.color;
+            ctx.lineWidth = 3;
+
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            for (let i = 0; i < points.length - 1; i++) {
+                const xc = (points[i].x + points[i + 1].x) / 2;
+                const yc = (points[i].y + points[i + 1].y) / 2;
+                ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+            }
+            ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
+            ctx.stroke();
+
+            // Vypnout stín pro body a texty
+            ctx.shadowBlur = 0;
+
+            // Kreslení bodů a popisků
+            points.forEach((pt) => {
+                ctx.fillStyle = ds.color;
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, 5, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, 2.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 11px Outfit, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(pt.val + (itemId === 'index' ? '' : ' $'), pt.x, pt.y - 12);
+
+                ctx.fillStyle = 'rgba(148, 163, 184, 0.8)';
+                ctx.font = '11px Poppins, sans-serif';
+                ctx.fillText(pt.label, pt.x, height - paddingBottom + 20);
+            });
+        }
+
+        window.addEventListener('resize', () => {
+            if (document.getElementById('tab-burza')?.classList.contains('active')) {
+                drawMarketChart(currentChartItem);
+            }
+        });
 
         function renderMarket() {
             const tbody = document.getElementById('marketTableBody');
-            const select = document.getElementById('adminItemSelect');
             const query = (document.getElementById('marketSearch')?.value || '').toLowerCase().trim();
             if (!tbody) return;
 
             tbody.innerHTML = '';
-            if (select) select.innerHTML = '';
 
             let count = 0;
             marketItems.forEach(item => {
-                if (select) {
-                    const opt = document.createElement('option');
-                    opt.value = item.id;
-                    opt.innerText = `${item.name} (teď ${item.price} $)`;
-                    select.appendChild(opt);
+                if (currentMarketCat !== 'all' && item.cat !== currentMarketCat) {
+                    return;
                 }
-
                 if (query && !item.name.toLowerCase().includes(query) && !item.note.toLowerCase().includes(query)) {
                     return;
                 }
@@ -2235,17 +3568,31 @@
                 if (item.trend === 'up') trendHtml = `<span class="trend-up">▲ Rostoucí (+${Math.round(Math.random()*6+2)}%)</span>`;
                 if (item.trend === 'down') trendHtml = `<span class="trend-down">▼ Klesající (-${Math.round(Math.random()*6+2)}%)</span>`;
 
-                const mult = seasons[currentSeason].multipliers[item.id];
+                const mult = seasons[currentSeason].multipliers[item.id] || 1.0;
                 let seasonImpact = `<span style="color:var(--text-muted);">Běžný vliv</span>`;
-                if (mult > 1.0) seasonImpact = `<span style="color:#22c55e; font-weight:600;">🔥 Zvýšená poptávka (${Math.round((mult-1)*100)}%)</span>`;
+                if (mult > 1.0) seasonImpact = `<span style="color:#22c55e; font-weight:600;">🔥 Zvýšená poptávka (+${Math.round((mult-1)*100)}%)</span>`;
                 if (mult < 1.0) seasonImpact = `<span style="color:#fb7185; font-weight:600;">🌾 Sezónní nadbytek (${Math.round((1-mult)*100)}%)</span>`;
 
                 let minedHtml = '';
                 if (item.mined_total !== undefined) {
-                    minedHtml = `<br><small style="color: #38bdf8; font-weight: 500;">⛏️ Na serveru: <strong>${item.mined_total.toLocaleString('cs-CZ')}</strong> ks</small>`;
+                    if (item.mined_total === 0) {
+                        minedHtml = `<br><small style="color: #64748b; font-weight: 500;">⛏️ Na serveru: <strong>0 ks</strong> (start 7.10. v 17:33)</small>`;
+                    } else {
+                        minedHtml = `<br><small style="color: #38bdf8; font-weight: 500;">⛏️ Na serveru: <strong>${item.mined_total.toLocaleString('cs-CZ')}</strong> ks</small>`;
+                    }
                 }
 
                 const tr = document.createElement('tr');
+                if (currentChartItem === item.id) {
+                    tr.classList.add('selected-row');
+                }
+                tr.onclick = () => {
+                    document.querySelectorAll('#marketTableBody tr').forEach(r => r.classList.remove('selected-row'));
+                    tr.classList.add('selected-row');
+                    switchChartItem(item.id);
+                    document.querySelector('.market-chart-card')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                };
+                tr.title = "Klikni pro zobrazení vývoje této komodity v grafu nahoře";
                 tr.innerHTML = `
                     <td>
                         <strong>${item.name}</strong><br>
@@ -2260,54 +3607,23 @@
                 tbody.appendChild(tr);
             });
 
+            if (count === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 45px 20px; color: var(--text-muted);">
+                    <div style="font-size: 2.2em; margin-bottom: 8px;">🔍</div>
+                    <strong style="color: #fff; font-size: 1.1em;">Žádná komodita neodpovídá hledání „${query}“</strong><br>
+                    <small style="margin-top: 6px; display: inline-block;">Zkus hledat jiné slovo nebo přepni kategorii na <a href="javascript:void(0)" onclick="setMarketCategory('all', document.querySelector('.market-cat-btn'))" style="color: #38bdf8; text-decoration: underline;">Všechny</a>.</small>
+                </td></tr>`;
+            }
+
+            const clearBtn = document.getElementById('clearMarketSearch');
+            if (clearBtn) clearBtn.style.display = query ? 'inline-block' : 'none';
+
             const countEl = document.getElementById('marketItemCount');
             if (countEl) countEl.innerText = `Zobrazeno ${count} z ${marketItems.length} komodit`;
         }
 
         function filterMarket() {
             renderMarket();
-        }
-
-        function fluctuateMarket() {
-            marketItems.forEach(item => {
-                const change = (Math.random() - 0.5) * 0.12; // +- 6%
-                item.price = Math.max(0.1, Math.round((item.price * (1 + change)) * 10) / 10);
-                item.trend = change >= 0 ? "up" : "down";
-            });
-            saveMarket();
-            renderMarket();
-        }
-
-        function toggleAdminMarket() {
-            const panel = document.getElementById('adminMarketPanel');
-            if (panel) panel.classList.toggle('active');
-        }
-
-        function applyAdminPrice() {
-            const id = document.getElementById('adminItemSelect').value;
-            const newPrice = parseFloat(document.getElementById('adminNewPrice').value);
-            if (isNaN(newPrice) || newPrice <= 0) {
-                alert("Zadej platnou číselnou cenu větší než 0.");
-                return;
-            }
-            const it = marketItems.find(x => x.id === id);
-            if (it) {
-                it.trend = newPrice > it.price ? "up" : "down";
-                it.price = newPrice;
-                it.base = newPrice;
-                saveMarket();
-                renderMarket();
-                document.getElementById('adminNewPrice').value = '';
-                alert(`Cena komodity ${it.name} byla úspěšně upravena na ${newPrice} $!`);
-            }
-        }
-
-        function resetMarketDefaults() {
-            if (confirm("Opravdu chceš obnovit výchozí ceník burzy?")) {
-                marketItems = JSON.parse(JSON.stringify(defaultMarketItems));
-                saveMarket();
-                renderMarket();
-            }
         }
 
         // --- 11. ŽIVÁ SYNCHRONIZACE SE SERVEREM (market_data.json) ---
@@ -2348,6 +3664,7 @@
 
                     saveMarket();
                     renderMarket();
+                    drawMarketChart(currentChartItem);
 
                     if (badge) {
                         badge.style.background = 'rgba(34, 197, 94, 0.15)';
@@ -2371,8 +3688,9 @@
             }
         }
 
-        // Spuštění burzy
+        // Spuštění burzy a grafu
         renderMarket();
+        switchChartItem('index');
         fetchLiveMarketData(false);
         // Automatická periodická kontrola burzy každé 3 minuty
         setInterval(() => fetchLiveMarketData(false), 180000);
