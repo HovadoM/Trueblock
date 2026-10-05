@@ -1260,90 +1260,16 @@
                 </div>
             </div>
 
-            <!-- Tržní ceník a ekonomika -->
-            <div class="section reveal">
-                <h2>📈 Doporučený tržní ceník surovin</h2>
-                <p style="margin-bottom: 20px;">
-                    Pro zachování férové ekonomiky a ochranu investic hráčů (Pravidlo 4) vydává vedení serveru orientační doporučené ceny pro aukce (<code style="color:var(--accent-blue);">/ah</code>) a hráčské truhlicové obchody (<code style="color:var(--accent-blue);">/qs</code>).
+            <!-- Odkaz na živou burzu komodit -->
+            <div class="section reveal" style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(99, 102, 241, 0.08)); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 20px; padding: 28px; text-align: center; margin-top: 35px;">
+                <div style="font-size: 2.2em; margin-bottom: 8px;">📊</div>
+                <h2 style="margin-bottom: 8px; color: #fff;">Živá Komoditní Burza TrueBlock</h2>
+                <p style="max-width: 620px; margin: 0 auto 20px; color: #cbd5e1; font-size: 0.95em; line-height: 1.6;">
+                    Kompletní ceník surovin a nápojů byl přesunut do naší živé burzy. Sleduj aktuální tržní ceny <strong>91 komodit</strong> v reálném čase, včetně cenových grafů, vlivu ročních období a nabídky pivovaru BreweryX.
                 </p>
-
-                <div class="price-table-wrapper">
-                    <table class="price-table">
-                        <thead>
-                            <tr>
-                                <th>Surovina / Předmět</th>
-                                <th>Doporučená cena (1 ks)</th>
-                                <th>Cena za Stack (64 ks)</th>
-                                <th>Tržní role</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>💎 Diamant</strong></td>
-                                <td><span class="price-tag">50 $</span></td>
-                                <td><span class="price-tag-stack">3 200 $</span></td>
-                                <td>Hlavní stabilní pilíř ekonomiky</td>
-                            </tr>
-                            <tr>
-                                <td><strong>🔥 Netherite Ingot</strong></td>
-                                <td><span class="price-tag">450 $</span></td>
-                                <td>—</td>
-                                <td>Luxusní komodita, náročná výroba</td>
-                            </tr>
-                            <tr>
-                                <td><strong>📜 Netherite Upgrade Template</strong></td>
-                                <td><span class="price-tag">800 $</span></td>
-                                <td>—</td>
-                                <td>Vzácná šablona pro kování zbroje</td>
-                            </tr>
-                            <tr>
-                                <td><strong>💚 Smaragd (Emerald)</strong></td>
-                                <td><span class="price-tag">15 $</span></td>
-                                <td><span class="price-tag-stack">960 $</span></td>
-                                <td>Obchodování s vesničany</td>
-                            </tr>
-                            <tr>
-                                <td><strong>🪙 Zlato (Gold Ingot)</strong></td>
-                                <td><span class="price-tag">8 $</span></td>
-                                <td><span class="price-tag-stack">512 $</span></td>
-                                <td>Zlatá jablka, směna s pigliny</td>
-                            </tr>
-                            <tr>
-                                <td><strong>⚙️ Železo (Iron Ingot)</strong></td>
-                                <td><span class="price-tag">4 $</span></td>
-                                <td><span class="price-tag-stack">256 $</span></td>
-                                <td>Základní stavební i craft surovina</td>
-                            </tr>
-                            <tr>
-                                <td><strong>⚡ Redstone</strong></td>
-                                <td><span class="price-tag">1.5 $</span></td>
-                                <td><span class="price-tag-stack">96 $</span></td>
-                                <td>Obvody, automatizace, lektvary</td>
-                            </tr>
-                            <tr>
-                                <td><strong>🪓 Dřevo (Logs - Dub, Smrk...)</strong></td>
-                                <td><span class="price-tag">0.8 $</span></td>
-                                <td><span class="price-tag-stack">50 $</span></td>
-                                <td>Základní stavební materiál</td>
-                            </tr>
-                            <tr>
-                                <td><strong>🥩 Pečený steak (Steak)</strong></td>
-                                <td><span class="price-tag">1 $</span></td>
-                                <td><span class="price-tag-stack">64 $</span></td>
-                                <td>Základní výživa pro survival</td>
-                            </tr>
-                            <tr>
-                                <td><strong>✨ Totem nesmrtelnosti</strong></td>
-                                <td><span class="price-tag">350 $</span></td>
-                                <td>—</td>
-                                <td>Záchrana života v těžkých bojích</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p style="margin-top: 15px; font-size: 0.9em; color: var(--text-muted);">
-                    💡 <em>Ceník je pravidelně aktualizován vedením serveru podle stáří světa a množství surovin na trhu.</em>
-                </p>
+                <button class="btn btn-primary" onclick="switchTab('tab-burza', document.querySelectorAll('.tab-btn')[3])" style="display: inline-flex; align-items: center; gap: 8px; margin: 0 auto;">
+                    📈 Otevřít Živou Burzu & Trh (91 komodit)
+                </button>
             </div>
 
         </div>
