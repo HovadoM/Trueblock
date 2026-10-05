@@ -1161,6 +1161,8 @@
                         <p>Zábavné rybářské soutěže o vzácné ryby a peníze. Možnost ukázat v chatu svůj držený předmět [item], inventář [inv] a férový boj s CombatLogX.</p>
                     </div>
                 </div>
+            </div>
+
             <!-- Tržní ceník a ekonomika -->
             <div class="section reveal">
                 <h2>📈 Doporučený tržní ceník surovin</h2>
@@ -1671,6 +1673,8 @@
 
                 </div>
             </div>
+        </div>
+
         <!-- ================= TAB 4: TRH & BURZA ================= -->
         <div id="tab-burza" class="tab-content">
             <div class="section">
@@ -1884,6 +1888,10 @@
             }
             if (triggerBtn) {
                 triggerBtn.classList.add('active');
+            }
+
+            if (tabId === 'tab-burza') {
+                renderMarket();
             }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2141,30 +2149,30 @@
 
         let currentSeason = 'autumn';
 
-        // Výchozí komodity burzy
+        // Výchozí komodity burzy (Fáze 1 - Startovní hodnotná ekonomika)
         const defaultMarketItems = [
-            { id: "diamond", name: "💎 Diamant", base: 50, price: 50, trend: "up", note: "Stabilní pilíř měny" },
-            { id: "netherite", name: "🔥 Netherite Ingot", base: 450, price: 450, trend: "neutral", note: "Luxusní komodita" },
-            { id: "template", name: "📜 Netherite Šablona", base: 800, price: 800, trend: "up", note: "Kování výbavy" },
-            { id: "emerald", name: "💚 Smaragd", base: 15, price: 15, trend: "neutral", note: "Obchod s vesničany" },
-            { id: "gold", name: "🪙 Zlatý Ingot", base: 8, price: 8, trend: "down", note: "Zlatá jablka, piglini" },
-            { id: "iron", name: "⚙️ Železný Ingot", base: 4, price: 4, trend: "neutral", note: "Základní kov na stavbu" },
-            { id: "copper", name: "🟫 Měděný Ingot", base: 1, price: 1, trend: "down", note: "Dekorativní stavební kov" },
-            { id: "coal", name: "🌑 Uhlí", base: 1.5, price: 2.0, trend: "up", note: "Sezónní palivo" },
-            { id: "redstone", name: "⚡ Redstone", base: 1.5, price: 1.5, trend: "neutral", note: "Technika a obvody" },
-            { id: "logs", name: "🪓 Surové Dřevo (Logs)", base: 0.8, price: 1.0, trend: "up", note: "Základní dřevo" },
-            { id: "stone", name: "🪨 Hladký Kámen", base: 0.5, price: 0.5, trend: "neutral", note: "Stavební bloky" },
-            { id: "steak", name: "🥩 Pečený Steak", base: 1.0, price: 0.9, trend: "down", note: "Výživa a regenerace" },
-            { id: "wheat", name: "🌾 Pšenice", base: 0.5, price: 0.4, trend: "down", note: "Podzimní nadúroda" },
-            { id: "totem", name: "✨ Totem Nesmrtelnosti", base: 350, price: 350, trend: "up", note: "Záchrana před smrtí" },
-            { id: "blaze_rod", name: "🔥 Blaze Rod", base: 15, price: 15, trend: "neutral", note: "Lektvary a Ender oči" },
-            { id: "shulker", name: "📦 Shulker Box", base: 280, price: 280, trend: "up", note: "Přenášení beden" }
+            { id: "diamond", name: "💎 Diamant", base: 150, price: 150, trend: "up", note: "Stabilní pilíř měny" },
+            { id: "netherite", name: "🔥 Netherite Ingot", base: 1800, price: 1800, trend: "up", note: "Luxusní endgame komodita" },
+            { id: "template", name: "📜 Netherite Šablona", base: 3200, price: 3200, trend: "up", note: "Kování výbavy z Bastionu" },
+            { id: "emerald", name: "💚 Smaragd", base: 35, price: 35, trend: "neutral", note: "Obchod s vesničany" },
+            { id: "gold", name: "🪙 Zlatý Ingot", base: 20, price: 20, trend: "neutral", note: "Zlatá jablka a Piglini" },
+            { id: "iron", name: "⚙️ Železný Ingot", base: 10, price: 10, trend: "up", note: "Základní kov pro zbroj a stroje" },
+            { id: "copper", name: "🟫 Měděný Ingot", base: 2, price: 2, trend: "down", note: "Dekorativní stavební kov" },
+            { id: "coal", name: "🌑 Uhlí", base: 3.5, price: 4.7, trend: "up", note: "Sezónní palivo na topení a louče" },
+            { id: "redstone", name: "⚡ Redstone", base: 3.0, price: 3.0, trend: "neutral", note: "Technika a obvody" },
+            { id: "logs", name: "🪓 Surové Dřevo (Logs)", base: 2.5, price: 3.1, trend: "up", note: "Základní stavební dřevo" },
+            { id: "stone", name: "🪨 Hladký Kámen", base: 1.0, price: 1.0, trend: "neutral", note: "Základní stavební bloky" },
+            { id: "steak", name: "🥩 Pečený Steak", base: 2.5, price: 2.2, trend: "down", note: "Výživa a regenerace" },
+            { id: "wheat", name: "🌾 Pšenice", base: 1.0, price: 0.8, trend: "down", note: "Podzimní úroda pro dobytek" },
+            { id: "totem", name: "✨ Totem Nesmrtelnosti", base: 1200, price: 1200, trend: "up", note: "Záchrana života v bojích" },
+            { id: "blaze_rod", name: "🔥 Blaze Rod", base: 45, price: 45, trend: "up", note: "Lektvary a Ender oči" },
+            { id: "shulker", name: "📦 Shulker Box", base: 1500, price: 1500, trend: "up", note: "Přenášení beden z Endu" }
         ];
 
-        let marketItems = JSON.parse(localStorage.getItem('tb_market_items')) || JSON.parse(JSON.stringify(defaultMarketItems));
+        let marketItems = JSON.parse(localStorage.getItem('tb_market_items_v2')) || JSON.parse(JSON.stringify(defaultMarketItems));
 
         function saveMarket() {
-            localStorage.setItem('tb_market_items', JSON.stringify(marketItems));
+            localStorage.setItem('tb_market_items_v2', JSON.stringify(marketItems));
         }
 
         function setSeason(seasonKey, recalc = true) {

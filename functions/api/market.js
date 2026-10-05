@@ -61,8 +61,8 @@ export async function onRequest(context) {
           {
             id: "diamond",
             name: "💎 Diamant",
-            base: 50,
-            price: Math.max(25, Math.round((50 * (1 - (totals.diamond / 10000) * 0.2)) * 10) / 10),
+            base: 150,
+            price: Math.max(80, Math.round((150 * (1 - (totals.diamond / 10000) * 0.2)) * 10) / 10),
             trend: totals.diamond > 1000 ? "down" : "up",
             mined_total: totals.diamond,
             note: `Vytěženo na serveru: ${totals.diamond} ks`
@@ -70,8 +70,8 @@ export async function onRequest(context) {
           {
             id: "netherite",
             name: "🔥 Netherite Ingot",
-            base: 450,
-            price: 450,
+            base: 1800,
+            price: 1800,
             trend: totals.debris < 50 ? "up" : "neutral",
             mined_total: totals.debris,
             note: `Nalezeno Ancient Debris: ${totals.debris} ks`
@@ -79,8 +79,8 @@ export async function onRequest(context) {
           {
             id: "iron",
             name: "⚙️ Železný Ingot",
-            base: 4,
-            price: Math.max(2, Math.round((4 * (1 - (totals.iron / 100000) * 0.15)) * 10) / 10),
+            base: 10,
+            price: Math.max(5, Math.round((10 * (1 - (totals.iron / 100000) * 0.15)) * 10) / 10),
             trend: "neutral",
             mined_total: totals.iron,
             note: `Vytěženo rudy: ${totals.iron} ks`
@@ -88,8 +88,8 @@ export async function onRequest(context) {
           {
             id: "coal",
             name: "🌑 Uhlí",
-            base: 1.5,
-            price: 2.0, // Podzimní poptávka
+            base: 3.5,
+            price: 4.7, // Podzimní poptávka
             trend: "up",
             mined_total: totals.coal,
             note: `Vytěženo uhlí: ${totals.coal} ks`
@@ -97,8 +97,8 @@ export async function onRequest(context) {
           {
             id: "logs",
             name: "🪓 Surové Dřevo",
-            base: 0.8,
-            price: 1.0,
+            base: 2.5,
+            price: 3.1,
             trend: "up",
             mined_total: totals.logs,
             note: `Posekáno dřeva: ${totals.logs} ks`
@@ -106,8 +106,8 @@ export async function onRequest(context) {
           {
             id: "stone",
             name: "🪨 Hladký Kámen",
-            base: 0.5,
-            price: 0.5,
+            base: 1.0,
+            price: 1.0,
             trend: "neutral",
             mined_total: totals.stone,
             note: `Vytěženo kamene: ${totals.stone} ks`
