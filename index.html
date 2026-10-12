@@ -556,65 +556,88 @@
             filter: brightness(1.15);
         }
 
-        /* Odpočet do startu (Countdown) */
-        .launch-countdown-card {
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.12), rgba(139, 92, 246, 0.12));
-            border: 1px solid rgba(14, 165, 233, 0.35);
+        /* Upozornění na povinný Discord */
+        .discord-notice-card {
+            background: linear-gradient(135deg, rgba(88, 101, 242, 0.16), rgba(139, 92, 246, 0.12));
+            border: 1px solid rgba(88, 101, 242, 0.45);
             border-radius: 20px;
-            padding: 26px 30px;
+            padding: 24px 28px;
             margin-bottom: 25px;
-            text-align: center;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            position: relative;
+            overflow: hidden;
         }
-        .countdown-title {
+        .discord-notice-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #5865F2, #c084fc);
+        }
+        .discord-notice-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.78em;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #fbbf24;
+            background: rgba(251, 191, 36, 0.12);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 20px;
+            padding: 4px 12px;
+            margin-bottom: 12px;
+        }
+        .discord-notice-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .discord-notice-text-group {
+            flex: 1 1 500px;
+        }
+        .discord-notice-title {
             font-family: 'Outfit', sans-serif;
             font-size: 1.35em;
             font-weight: 700;
-            color: #38bdf8;
-            margin-bottom: 6px;
+            color: #fff;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 10px;
         }
-        .countdown-subtitle {
+        .discord-notice-desc {
             font-size: 0.95em;
             color: var(--text-muted);
-            margin-bottom: 18px;
+            line-height: 1.55;
+            margin: 0;
         }
-        .countdown-grid {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            flex-wrap: wrap;
+        .discord-notice-desc strong {
+            color: #e2e8f0;
         }
-        .countdown-item {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border-glass);
-            border-radius: 14px;
-            padding: 12px 20px;
-            min-width: 82px;
-            display: flex;
-            flex-direction: column;
+        .discord-btn-pulse {
+            flex-shrink: 0;
+            display: inline-flex;
             align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            font-size: 0.95em;
+            font-weight: 700;
+            border-radius: 12px;
+            animation: pulse-glow 2.5s infinite;
         }
-        .countdown-value {
-            font-family: 'Outfit', sans-serif;
-            font-size: 2.2em;
-            font-weight: 900;
-            line-height: 1;
-            color: #fff;
-            background: linear-gradient(135deg, #38bdf8, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .countdown-label {
-            font-size: 0.75em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-top: 5px;
-            font-weight: 600;
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 15px rgba(88, 101, 242, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 25px rgba(88, 101, 242, 0.75);
+            }
         }
 
         /* Styly pro tržní ceník */
@@ -1127,6 +1150,10 @@
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
                 Trh & Burza
             </button>
+            <a href="https://discord.gg/tJQE55kaGu" target="_blank" rel="noopener noreferrer" class="tab-btn" style="text-decoration: none; color: #818cf8;">
+                <svg width="18" height="18" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a74.37,74.37,0,0,0,6.85-11.85,68.44,68.44,0,0,1-10.75-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,72.76,0c.86.68,1.75,1.36,2.66,2a68.86,68.86,0,0,1-10.75,5.18,74.77,74.77,0,0,0,6.85,11.85,105.54,105.54,0,0,0,31.05-18.83C129.24,48.25,123.47,25.42,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z"/></svg>
+                Discord
+            </a>
         </div>
     </nav>
 
@@ -1143,7 +1170,7 @@
                     Java Edice
                 </span>
                 <span class="ip-address">play.trueblock.win</span>
-                <div class="ip-hint">Klikni pro zkopírování • Verze 26.3</div>
+                <div class="ip-hint">Klikni pro zkopírování • Verze 26.3 (podpora 1.20 - 26.x)</div>
                 <div id="toast-java" class="copy-toast">Zkopírováno!</div>
             </div>
 
@@ -1166,34 +1193,25 @@
         <!-- ================= TAB 1: PŘEHLED ================= -->
         <div id="tab-prehled" class="tab-content active">
             
-            <!-- Odpočet do oficiálního spuštění -->
-            <div class="launch-countdown-card reveal active">
-                <div class="countdown-title">
-                    <span>🚀 Oficiální veřejný start serveru</span>
+            <!-- Důležité upozornění: Povinný Discord pro hraní -->
+            <div class="discord-notice-card reveal active">
+                <div class="discord-notice-badge">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    DŮLEŽITÉ • NUTNOST PRO HRANÍ
                 </div>
-                <div class="countdown-subtitle">
-                    Otevření bran pro všechny hráče: <strong>Středa 7. října 2026 v 17:33</strong>
-                </div>
-                <div class="countdown-grid" id="countdownGrid">
-                    <div class="countdown-item">
-                        <span class="countdown-value" id="cd-days">0</span>
-                        <span class="countdown-label">Dní</span>
+                <div class="discord-notice-content">
+                    <div class="discord-notice-text-group">
+                        <div class="discord-notice-title">
+                            <span>Pro hraní na serveru je nutné být na našem Discordu!</span>
+                        </div>
+                        <p class="discord-notice-desc">
+                            Server má aktivní systém komunitního ověření. Aby ses mohl napojit a nerušeně hrát, <strong>musíš být členem našeho Discord serveru</strong> (zápis herního nicku, whitelist, pravidla, důležitá oznámení a podpora).
+                        </p>
                     </div>
-                    <div class="countdown-item">
-                        <span class="countdown-value" id="cd-hours">00</span>
-                        <span class="countdown-label">Hodin</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-value" id="cd-minutes">00</span>
-                        <span class="countdown-label">Minut</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-value" id="cd-seconds">00</span>
-                        <span class="countdown-label">Sekund</span>
-                    </div>
-                </div>
-                <div id="launch-live-badge" style="display: none; margin-top: 15px; font-weight: 700; color: #22c55e; font-size: 1.15em;">
-                    🎉 SERVER JE PRÁVĚ OTEVŘEN! PŘIPOJ SE HNED!
+                    <a class="btn btn-discord discord-btn-pulse" href="https://discord.gg/tJQE55kaGu" target="_blank" rel="noopener noreferrer">
+                        <svg width="22" height="22" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a74.37,74.37,0,0,0,6.85-11.85,68.44,68.44,0,0,1-10.75-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,72.76,0c.86.68,1.75,1.36,2.66,2a68.86,68.86,0,0,1-10.75,5.18,74.77,74.77,0,0,0,6.85,11.85,105.54,105.54,0,0,0,31.05-18.83C129.24,48.25,123.47,25.42,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z"/></svg>
+                        Připojit se na Discord Server
+                    </a>
                 </div>
             </div>
 
@@ -2215,44 +2233,6 @@
             reveals.forEach(r => observer.observe(r));
         });
 
-        // --- 9. ŽIVÝ ODPOČET DO STARTU (Středa 7. 10. 2026 v 17:33) ---
-        const targetLaunchDate = new Date("2026-10-07T17:33:00+02:00").getTime();
-
-        function updateLaunchCountdown() {
-            const now = new Date().getTime();
-            const diff = targetLaunchDate - now;
-
-            const daysEl = document.getElementById("cd-days");
-            const hoursEl = document.getElementById("cd-hours");
-            const minsEl = document.getElementById("cd-minutes");
-            const secsEl = document.getElementById("cd-seconds");
-            const liveBadge = document.getElementById("launch-live-badge");
-            const grid = document.getElementById("countdownGrid");
-
-            if (!daysEl || !hoursEl || !minsEl || !secsEl) return;
-
-            if (diff <= 0) {
-                daysEl.innerText = "0";
-                hoursEl.innerText = "00";
-                minsEl.innerText = "00";
-                secsEl.innerText = "00";
-                if (liveBadge) liveBadge.style.display = "block";
-                return;
-            }
-
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const secs = Math.floor((diff % (1000 * 60)) / 1000);
-
-            daysEl.innerText = days;
-            hoursEl.innerText = hours < 10 ? "0" + hours : hours;
-            minsEl.innerText = mins < 10 ? "0" + mins : mins;
-            secsEl.innerText = secs < 10 ? "0" + secs : secs;
-        }
-
-        setInterval(updateLaunchCountdown, 1000);
-        updateLaunchCountdown();
 
         // --- 10. KOMODITNÍ BURZA & ROČNÍ OBDOBÍ ---
                 const seasons = {
